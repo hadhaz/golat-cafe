@@ -8,6 +8,7 @@ module.exports = {
     extend: {
       colors: {
         mangoTango: "#E07F09",
+        mango: "#ffbc6b",
         dairyCream: "#F4E6CD",
         rifleGreen: "#31452C",
       },

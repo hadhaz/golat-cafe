@@ -8,7 +8,7 @@ export default function MenuCard({ item }) {
 
   return (
     <div className='w-screen keen-slider__slide h-fit px-2 pt-10 flex justify-center'>
-      <div className='w-[25%] min-w-fit px-3 aspect-square relative bg-dairyCream flex flex-col items-center justify-end lg:pb-[1.7%] pb-3'>
+      <div className='w-[100%] min-w-fit px-3 aspect-square relative bg-dairyCream flex flex-col items-center justify-end lg:pb-[5%] pb-3'>
         <div className='max-w-full -top-10 absolute w-[70%]'>
           <Image alt={item.name} src={item.img} width={400} height={400} />
         </div>
