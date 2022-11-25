@@ -8,8 +8,8 @@ import Catalogue from "../catalogue/Catalouge";
 export default function Main() {
   return (
     <>
-      <CoffeeOverlay />
-      <div className='max-w-7xl w-screen overflow-hidden mx-auto grid grid-cols-5'>
+      <div className='relative max-w-7xl w-screen overflow-hidden mx-auto grid grid-cols-5'>
+        <CoffeeOverlay />
         <section className='col-span-2 flex flex-col gap-y-8 p-6 px-12'>
           <div className='hover:bg-[#848e57] duration-300 cursor-pointer flex gap-1 bg-[#585E3E] w-fit px-4 font-semibold py-2 rounded-md'>
             <Image src='/coffee.svg' alt='coffee cup' width={20} height={20} />
