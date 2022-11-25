@@ -16,7 +16,7 @@ export default function MenuCard({ item }) {
           {item.name}
         </h1>
         <div className='flex gap-6 text-sm justify-center mt-4'>
-          <button className='bg-mangoTango w-28 font-semibold py-2 rounded-sm'>
+          <button className='bg-mangoTango hover:bg-mango text-white w-28 font-semibold py-2 rounded-sm'>
             Order Now
           </button>
           <div className='text-black flex items-center justify-center font-semibold'>

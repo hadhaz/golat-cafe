@@ -3,7 +3,7 @@ import { useKeenSlider } from "keen-slider/react";
 import { useState } from "react";
 import MenuCard from "../card/MenuCard";
 
-export default function Carousel({ items }) {
+export default function Carousel({ items, type }) {
   const [loaded, setLoaded] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [sliderRef, instanceRef] = useKeenSlider(
@@ -55,11 +55,18 @@ export default function Carousel({ items }) {
   return (
     <div
       ref={sliderRef}
-      className='keen-slider max-w-[75%] mx-auto text-2xl text-black'
+      className='keen-slider max-w-7xl w-3/4 mx-auto text-2xl text-black'
     >
-      {items.map((item, index) => {
-        return <MenuCard item={item} key={index} />;
-      })}
+      {type !== "all" &&
+        items.map((item, index) => {
+          if (item.category === type)
+            return <MenuCard item={item} key={index} />;
+        })}
+      {type == "all" &&
+        items.map((item, index) => {
+          if (item.bestSeller) return <MenuCard item={item} key={index} />;
+        })}
+
       {loaded && instanceRef.current && (
         <>
           <>
