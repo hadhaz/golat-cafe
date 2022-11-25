@@ -1,44 +1,30 @@
-import Carousel from "../components/carousel/Carousel";
-import items from "../data/product.json";
 import Navbar from "../components/header/Navbar";
 import BestSeller from "../components/catalogue/BestSeller";
 import CoffeeOverlay from "../components/main/Overlay";
+import Catalogue from "../components/catalogue/Catalouge";
 
 export default function Menu() {
   return (
     <>
-      <CoffeeOverlay top={'100px'}/>
+      <CoffeeOverlay top={"100px"} />
       <Navbar />
-      <main className='flex flex-col gap-28'>
+      <main className='flex flex-col xl:gap-12 lg:gap-4'>
         <BestSeller />
-        <section className=''>
-          <h1 className='text-2xl lg:text-3xl xl:text-4xl font-semibold text-center mt-16 mb-2 xl:mb-3'>
-            Coffee
-          </h1>
-          <p className='text-center mb-12 text-sm xl:text-base'>
-            Most wanted food and drink
-          </p>
-          <Carousel items={items} type='coffee' />
-        </section>
-        <section>
-          <h1 className='text-2xl lg:text-3xl xl:text-4xl font-semibold text-center mt-16 mb-2 xl:mb-3'>
-            Non Coffee
-          </h1>
-          <p className='text-center mb-12 text-sm xl:text-base'>
-            Most wanted food and drink
-          </p>
-          <Carousel items={items} type='non-coffee' />
-        </section>
-        <section className=''>
-          <h1 className='text-2xl lg:text-3xl xl:text-4xl font-semibold text-center mt-16 mb-2 xl:mb-3'>
-            Food
-          </h1>
-          <p className='text-center mb-12 text-sm xl:text-base'>
-            Most wanted food and drink
-          </p>
-          <Carousel items={items} type='food' />
-        </section>
+        {menus.map(item => (
+          <Catalogue
+            title={item.title}
+            desc={item.desc}
+            type={item.type}
+            key={item.title}
+          />
+        ))}
       </main>
     </>
   );
 }
+
+const menus = [
+  { title: "Coffee", desc: "Most wanted coffee", type: "coffee" },
+  { title: "Non-Coffee", desc: "Most wanted drink", type: "non-coffee" },
+  { title: "Food", desc: "Most wanted food", type: "food" },
+];
