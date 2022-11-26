@@ -5,14 +5,13 @@ import cartReducer from "./cart-slice";
 import reminderReducer from "./reminder-slice";
 import memoReducer from "./memo-slice";
 
-export const store = () =>
-  configureStore({
-    reducer: {
-      auth: authReducer,
-      cart: cartReducer,
-      reminder: reminderReducer,
-      memo: memoReducer,
-    },
-  });
+export const store = configureStore({
+  reducer: {
+    auth: authReducer,
+    cart: cartReducer,
+    reminder: reminderReducer,
+    memo: memoReducer,
+  },
+});
 
-export const wrapper = createWrapper(store);
+export default store
