@@ -8,7 +8,7 @@ export default function Menu() {
     <>
       <CoffeeOverlay top={"100px"} />
       <Navbar />
-      <main className='flex flex-col xl:gap-12 lg:gap-4'>
+      <main className='flex flex-col xl:gap-12 lg:gap-4 pt-16'>
         <BestSeller />
         {menus.map(item => (
           <Catalogue

@@ -1,10 +1,67 @@
 import Image from "next/image";
+import { useState } from "react";
+import { addItem, removeItem, setItem } from "../../context/cart-slice";
+import { useDispatch } from "react-redux";
+import { useRef } from "react";
+import { useSelector } from "react-redux";
+import { saveItem, selectedItems } from "../../context/memo-slice";
 
 export default function MenuCard({ item }) {
+  const food = useSelector(selectedItems);
+  const [cart, setCart] = useState(!!food[item.name]);
+  const [quantity, setQuantity] = useState(food[item.name]);
+  const dispatch = useDispatch();
+
   const formatter = Intl.NumberFormat("id-ID", {
     currency: "IDR",
     style: "currency",
   });
+
+  const cartHandler = () => {
+    setQuantity(food[item.name] + 1 || 1);
+    dispatch(
+      addItem({
+        name: item.name,
+        price: item.price,
+      })
+    );
+    setCart(true);
+    // setQuantity is asynchronous update, so we handle with + 1
+    dispatch(saveItem({ [item.name]: 1 }));
+  };
+
+  const removeHandler = () => {
+    if (quantity > 1) {
+      setQuantity(prev => prev - 1);
+      dispatch(
+        removeItem({
+          name: item.name,
+          price: item.price,
+        })
+      );
+    } else {
+      setCart(false);
+      setQuantity(prev => prev - 1);
+      dispatch(
+        removeItem({
+          name: item.name,
+          price: item.price,
+        })
+      );
+    }
+    dispatch(saveItem({ [item.name]: quantity - 1 }));
+  };
+
+  const addHandler = () => {
+    dispatch(
+      addItem({
+        name: item.name,
+        price: item.price,
+      })
+    );
+    setQuantity(prev => prev + 1);
+    dispatch(saveItem({ [item.name]: quantity + 1 }));
+  };
 
   return (
     <div className='w-screen keen-slider__slide h-fit px-2 pt-10 flex justify-center'>
@@ -16,9 +73,33 @@ export default function MenuCard({ item }) {
           {item.name}
         </h1>
         <div className='flex gap-6 text-sm justify-center mt-4'>
-          <button className='bg-mangoTango hover:bg-mango text-white w-28 font-semibold py-2 rounded-sm'>
-            Add to Cart
-          </button>
+          {!cart && (
+            <button
+              onClick={cartHandler}
+              className='duration-200 bg-mangoTango hover:bg-mango text-white w-28 font-semibold py-2 rounded-sm'
+            >
+              Add to Cart
+            </button>
+          )}
+          {cart && (
+            <div className='flex justify-center duration-200 bg-mango text-white w-28 font-semibold rounded-sm'>
+              <button
+                className='bg-mangoTango basis-[30%] text-xl'
+                onClick={removeHandler}
+              >
+                -
+              </button>
+              <div className='bg-mango py-[6px] border-y-4 border-mangoTango rounded-sm basis-2/5 text-center'>
+                {quantity}
+              </div>
+              <button
+                className='bg-mangoTango basis-[30%] text-xl'
+                onClick={addHandler}
+              >
+                +
+              </button>
+            </div>
+          )}
           <div className='text-black flex items-center justify-center font-semibold'>
             {formatter.format(item.price)}
           </div>

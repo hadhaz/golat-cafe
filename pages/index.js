@@ -2,7 +2,7 @@ import Head from "next/head";
 import BestSeller from "../components/catalogue/BestSeller";
 import Navbar from "../components/header/Navbar";
 import Main from "../components/main/Main";
-import items from "../data/product.json"
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -17,7 +17,12 @@ export default function Home() {
       </Head>
       <Navbar />
       <Main />
-      <BestSeller/>
+      <BestSeller />
+      <Link href='/menu'>
+        <div className='hover:scale-125 w-fit mx-auto duration-200 text-center cursor-pointer font-semibold my-10 text-lg lg:text-xl xl:text-2xl'>
+          Find More...
+        </div>
+      </Link>
     </>
   );
 }
