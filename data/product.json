@@ -4,7 +4,7 @@
     "price": 22000,
     "img": "/product/c-cappucino.png",
     "category": "coffee",
-    "bestSeller": true
+    "bestSeller": false
   },
   {
     "name": "Mocha",

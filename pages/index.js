@@ -3,10 +3,14 @@ import BestSeller from "../components/catalogue/BestSeller";
 import Navbar from "../components/header/Navbar";
 import Main from "../components/main/Main";
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { useRouter } from "next/router";
+import { AnimatePresence, motion } from "framer-motion";
+import DraggableCart from "../components/cart/DraggableCard";
+import { useSelector } from "react-redux";
+import { selectedDraggableCart } from "../context/cart-slice";
 
 export default function Home() {
+  const draggableCartActive = useSelector(selectedDraggableCart);
+
   return (
     <>
       <Head>
@@ -31,6 +35,9 @@ export default function Home() {
           Find More...
         </div>
       </Link>
+      <AnimatePresence>
+        {draggableCartActive && <DraggableCart />}
+      </AnimatePresence>
     </>
   );
 }

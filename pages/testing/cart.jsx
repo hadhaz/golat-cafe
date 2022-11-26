@@ -1,14 +1,8 @@
 import Image from "next/image";
+import OrderCard from "../../components/card/OrderCard";
 
 const Cart = () => {
-  return (
-    <div className='relative p-2 rounded-full border w-fit '>
-      <Image src='/cart.svg' width={20} height={20} alt='Your Cart' />
-      <div className='absolute -top-2 -right-2 font-medium bg-dairyCream w-3/5 text-center rounded-full text-black text-sm aspect-square'>
-        1
-      </div>
-    </div>
-  );
+  return <OrderCard />;
 };
 
 export default Cart;

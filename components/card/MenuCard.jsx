@@ -1,8 +1,12 @@
 import Image from "next/image";
 import { useState } from "react";
-import { addItem, removeItem, setItem } from "../../context/cart-slice";
+import {
+  addItem,
+  removeItem,
+  selectedDraggableCart,
+  setItem,
+} from "../../context/cart-slice";
 import { useDispatch } from "react-redux";
-import { useRef } from "react";
 import { useSelector } from "react-redux";
 import { saveItem, selectedItems } from "../../context/memo-slice";
 
@@ -82,14 +86,14 @@ export default function MenuCard({ item }) {
             </button>
           )}
           {cart && (
-            <div className='flex justify-center duration-200 bg-mango text-white w-28 font-semibold rounded-sm'>
+            <div className='rounded-sm flex justify-center py-1 duration-200 bg-mangoTango text-white w-28 font-semibold overflow-hidden'>
               <button
                 className='bg-mangoTango basis-[30%] text-xl'
                 onClick={removeHandler}
               >
                 -
               </button>
-              <div className='bg-mango py-[6px] border-y-4 border-mangoTango rounded-sm basis-2/5 text-center'>
+              <div className='rounded-sm bg-mango py-[6px] basis-2/5 text-center'>
                 {quantity}
               </div>
               <button
