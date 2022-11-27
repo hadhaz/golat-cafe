@@ -1,18 +1,23 @@
 import { useState } from "react";
 import Image from "next/image";
 import { useSelector, useDispatch } from "react-redux";
-import { onClick, selectedCumulativeQuantity } from "../../context/cart-slice";
+import {
+  disableCart,
+  onClick,
+  selectedCumulativeQuantity,
+} from "../../context/cart-slice";
 import { selectedItems } from "../../context/memo-slice";
 
 export default function CartIcon() {
   const [warning, setWarning] = useState(false);
   const quantity = useSelector(selectedCumulativeQuantity);
   const dispatch = useDispatch();
-  const items = useSelector(selectedItems);
 
   const draggableHandler = () => {
-    if (quantity > 0) dispatch(onClick());
-    else {
+    if (quantity > 0) {
+      dispatch(onClick());
+      dispatch(disableCart(false));
+    } else {
       setWarning(true);
       setTimeout(() => setWarning(false), 1000);
     }

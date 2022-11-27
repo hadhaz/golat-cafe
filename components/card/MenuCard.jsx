@@ -1,15 +1,18 @@
 import Image from "next/image";
 import { useState } from "react";
-import { addItem, removeItem } from "../../context/cart-slice";
+import { addItem, onClick, removeItem } from "../../context/cart-slice";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { saveItem, selectedItems } from "../../context/memo-slice";
 
 export default function MenuCard({ item }) {
   const food = useSelector(selectedItems);
-  const { quantity } = food.find(({ name }) => name === item.name) || {quantity: 0};
+  const { quantity } = food.find(({ name }) => name === item.name) || {
+    quantity: 0,
+  };
   const [cart, setCart] = useState(quantity > 0);
   const dispatch = useDispatch();
+  const dontActive = useSelector(state => state.cart.dontActive);
 
   const formatter = Intl.NumberFormat("id-ID", {
     currency: "IDR",
@@ -24,6 +27,9 @@ export default function MenuCard({ item }) {
       })
     );
     setCart(true);
+
+    if (!dontActive) dispatch(onClick(true));
+    
     // setQuantity is asynchronous update, so we handle with + 1
     dispatch(
       saveItem({

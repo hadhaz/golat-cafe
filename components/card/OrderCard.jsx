@@ -6,17 +6,17 @@ import { saveItem } from "../../context/memo-slice";
 
 const OrderCard = ({ price, name, quantity, img }) => {
   const dispatch = useDispatch();
+  const formatter = Intl.NumberFormat("id-ID", {
+    currency: "IDR",
+    style: "currency",
+  });
   const addHandler = () => {
-    dispatch(addItem({name, price}));
-    dispatch(
-      saveItem({ name, quantity: quantity+1, price })
-    );
+    dispatch(addItem({ name, price }));
+    dispatch(saveItem({ name, quantity: quantity + 1, price }));
   };
   const removeHandler = () => {
-    dispatch(removeItem({name, price}));
-    dispatch(
-      saveItem({ name, quantity:quantity-1, price })
-    );
+    dispatch(removeItem({ name, price }));
+    dispatch(saveItem({ name, quantity: quantity - 1, price }));
   };
 
   return (
@@ -27,7 +27,7 @@ const OrderCard = ({ price, name, quantity, img }) => {
       <div className='col-span-3 flex flex-col ml-10 justify-center h-20'>
         <h3 className='text-lg font-medium mb-1'>{name}</h3>
         <div className='flex gap-5 items-center '>
-          <div>{price}</div>
+          <div>{formatter.format(price)}</div>
           <div className='flex rounded-md overflow-hidden bg-mangoTango text-white font-medium'>
             <div
               className='w-8 py-1 text-center hover:bg-[#e04609]'

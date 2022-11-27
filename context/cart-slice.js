@@ -5,6 +5,7 @@ const initialState = {
   total: 0,
   quantityCum: 0,
   draggableOn: false,
+  dontActive: false,
 };
 
 export const cart = createSlice({
@@ -42,7 +43,18 @@ export const cart = createSlice({
       state.quantityCum -= 1;
     },
     onClick: (state, { payload }) => {
-      state.draggableOn = !state.draggableOn;
+      if (payload) {
+        state.draggableOn = payload;
+      } else {
+        state.draggableOn = !state.draggableOn;
+      }
+    },
+    disableCart: (state, { payload }) => {
+      if (payload) {
+        state.dontActive = payload;
+      } else {
+        state.dontActive = !state.draggableOn;
+      }
     },
   },
 });
@@ -50,5 +62,7 @@ export const cart = createSlice({
 export const selectedTotal = state => state.cart.total;
 export const selectedCumulativeQuantity = state => state.cart.quantityCum;
 export const selectedDraggableCart = state => state.cart.draggableOn;
-export const { addItem, removeItem, setItem, onClick } = cart.actions;
+export const selectedDontActive = state => state.cart.dontActive;
+export const { addItem, removeItem, setItem, onClick, disableCart } =
+  cart.actions;
 export default cart.reducer;

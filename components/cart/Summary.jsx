@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { onClick } from "../../context/cart-slice";
+import { disableCart, onClick } from "../../context/cart-slice";
 import { forwardRef, useState, useEffect } from "react";
 import Image from "next/image";
 import { selectedItems } from "../../context/memo-slice";
@@ -22,6 +22,7 @@ const Summary = forwardRef((props, ref) => {
   const dispatch = useDispatch();
   const closeHandler = () => {
     dispatch(onClick());
+    dispatch(disableCart(true));
   };
 
   useEffect(() => {
