@@ -1,8 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  reminder: false,
-  popup: false,
+  isReminder: false,
+  isPopup: false,
+  isClosed: false,
 };
 
 export const reminder = createSlice({
@@ -10,12 +11,18 @@ export const reminder = createSlice({
   initialState,
   reducers: {
     popup: (state, action) => {
-      state.popup = action.payload;
+      state.isPopup = action.payload;
+      if (!action.payload) state.isClosed = true;
     },
-    reminder: (state, action) => {
-      state.reminder = action.payload;
+    remind: (state, action) => {
+      state.isReminder = action.payload;
+      state.isClosed = false;
     },
   },
 });
 
+export const { popup, remind } = reminder.actions;
+export const selectedPopup = state => state.reminder.isPopup;
+export const selectedIsPopupClosed = state => state.reminder.isClosed;
+export const selectedReminder = state => state.reminder.isReminder;
 export default reminder.reducer;

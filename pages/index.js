@@ -7,6 +7,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import DraggableCart from "../components/cart/DraggableCard";
 import { useSelector } from "react-redux";
 import { selectedDraggableCart } from "../context/cart-slice";
+import Reminder from "../components/modal/Reminder";
 
 export default function Home() {
   const draggableCartActive = useSelector(selectedDraggableCart);
@@ -21,6 +22,7 @@ export default function Home() {
         />
         <link rel='icon' href='/favicon.ico' />
       </Head>
+      <Reminder />
       <Navbar />
       <Main />
       <motion.div

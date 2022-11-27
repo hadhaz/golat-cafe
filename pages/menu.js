@@ -6,12 +6,14 @@ import { AnimatePresence, motion } from "framer-motion";
 import DraggableCart from "../components/cart/DraggableCard";
 import { useSelector } from "react-redux";
 import { selectedDraggableCart } from "../context/cart-slice";
+import Reminder from "../components/modal/Reminder";
 
 export default function Menu() {
   const cart = useSelector(selectedDraggableCart);
   return (
     <>
       <CoffeeOverlay top={"100px"} />
+      <Reminder />
       <Navbar />
       <main className='flex flex-col xl:gap-12 lg:gap-4 pt-16'>
         <motion.div

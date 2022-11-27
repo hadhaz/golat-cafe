@@ -4,13 +4,14 @@ import { addItem, onClick, removeItem } from "../../context/cart-slice";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { saveItem, selectedItems } from "../../context/memo-slice";
+import { popup } from "../../context/reminder-slice";
 
 export default function MenuCard({ item }) {
+  const [firstOrder, setFirstOrder] = useState(true);
   const food = useSelector(selectedItems);
   const { quantity } = food.find(({ name }) => name === item.name) || {
     quantity: 0,
   };
-  const [cart, setCart] = useState(quantity > 0);
   const dispatch = useDispatch();
   const dontActive = useSelector(state => state.cart.dontActive);
 
@@ -20,16 +21,16 @@ export default function MenuCard({ item }) {
   });
 
   const cartHandler = () => {
+    firstOrder ? dispatch(popup(true)) : "";
     dispatch(
       addItem({
         name: item.name,
         price: item.price,
       })
     );
-    setCart(true);
 
     if (!dontActive) dispatch(onClick(true));
-    
+
     // setQuantity is asynchronous update, so we handle with + 1
     dispatch(
       saveItem({
@@ -38,6 +39,8 @@ export default function MenuCard({ item }) {
         price: item.price,
       })
     );
+
+    setFirstOrder(false);
   };
 
   const removeHandler = () => {
@@ -49,7 +52,6 @@ export default function MenuCard({ item }) {
         })
       );
     } else {
-      setCart(false);
       dispatch(
         removeItem({
           name: item.name,

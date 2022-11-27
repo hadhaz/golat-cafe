@@ -12,6 +12,7 @@ module.exports = {
         dairyCream: "#F4E6CD",
         rifleGreen: "#31452C",
         whiteOverlay: "rgba(255, 255, 255, 0.2)",
+        deepOrange: "#e04609",
       },
     },
   },
