@@ -2,9 +2,13 @@ import Navbar from "../components/header/Navbar";
 import BestSeller from "../components/catalogue/BestSeller";
 import CoffeeOverlay from "../components/main/Overlay";
 import Catalogue from "../components/catalogue/Catalouge";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import DraggableCart from "../components/cart/DraggableCard";
+import { useSelector } from "react-redux";
+import { selectedDraggableCart } from "../context/cart-slice";
 
 export default function Menu() {
+  const cart = useSelector(selectedDraggableCart);
   return (
     <>
       <CoffeeOverlay top={"100px"} />
@@ -21,12 +25,19 @@ export default function Menu() {
             key={item.title}
             animate={{ x: 0, opacity: 1 }}
             initial={{ x: "-70vw", opacity: 0 }}
-            transition={{delay: 0.3, duration: 0.3, type: "spring", stiffness: 90, damping: 11}}
+            transition={{
+              delay: 0.3,
+              duration: 0.3,
+              type: "spring",
+              stiffness: 90,
+              damping: 11,
+            }}
           >
             <Catalogue title={item.title} desc={item.desc} type={item.type} />
           </motion.div>
         ))}
       </main>
+      <AnimatePresence>{cart && <DraggableCart />}</AnimatePresence>
     </>
   );
 }

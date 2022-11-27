@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
 
 const initialState = {
-  items: {},
+  items: [],
 };
 
 export const memo = createSlice({
@@ -10,10 +10,13 @@ export const memo = createSlice({
   initialState,
   reducers: {
     saveItem: (state, { payload }) => {
-      state.items = {
-        ...state.items,
-        ...payload,
-      };
+      const target = state.items.find(item => item.name === payload.name);
+      if (target) {
+        if (payload.quantity > 0) target.quantity = payload.quantity;
+        else state.items = state.items.filter(item => item.name !== payload.name)
+      } else {
+        state.items.push(payload);
+      }
     },
   },
 });

@@ -1,53 +1,69 @@
-import { motion, useMotionValue } from "framer-motion";
-import { forwardRef, useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
+import { selectedItems } from "../../context/memo-slice";
 import OrderCard from "../card/OrderCard";
+import Summary from "./Summary";
+import db from "../../data/product.json";
 
 export default function DraggableCart() {
   const [oHeight, setOHeight] = useState(0);
+  const [yPos, setYPos] = useState(0);
   const [loaded, setLoaded] = useState(0);
   const orderCardRef = useRef();
+  const summaryRef = useRef();
+  const items = useSelector(selectedItems);
 
   useEffect(() => {
     setLoaded(true);
-    setOHeight(orderCardRef.current.clientHeight);
+    setOHeight(orderCardRef?.current?.clientHeight || 0);
+    setYPos(orderCardRef?.current?.clientHeight || 0);
   }, []);
 
+  useEffect(() => {
+    setOHeight(orderCardRef?.current?.clientHeight);
+  }, [items]);
+
+  console.log(oHeight, yPos);
+
   return (
-    <motion.div
-      drag='y'
-      initial={{ x: "-50%", y: "100vh" }}
-      animate={{ y: oHeight }}
-      exit={{ x: "-50%", y: "80vh" }}
-      dragConstraints={{ bottom: oHeight + 138, top: 0 }}
-      transition={{duration: 0.3, type:"spring", stiffness: 90, damping: 10}}
-      className='text-black max-w-[500px] w-full left-1/2 -translate-x-1/2 fixed bg-white rounded-md bottom-0'
-    >
-      <Summary />
-      <div
-        ref={orderCardRef}
-        className='overflow-scroll mt-3 rounded-md shadow-md max-h-[40vh]'
+    <AnimatePresence>
+      {items[0] && <motion.div
+        drag='y'
+        initial={{ x: "-50%", y: "100vh" }}
+        animate={{ y: yPos, x: "-50%" }}
+        exit={{ x: "-50%", y: "80vh" }}
+        dragConstraints={{
+          bottom: oHeight + (items.length - 1) + 135,
+          top: 0,
+        }}
+        transition={{
+          duration: 0.3,
+          type: "spring",
+          stiffness: 40,
+          damping: 10,
+        }}
+        className='text-black max-w-[500px] w-full left-1/2 -translate-x-1/2 fixed bg-white rounded-md bottom-0'
       >
-        <OrderCard />
-        <OrderCard />
-        <OrderCard />
-        <OrderCard />
-        <OrderCard />
-      </div>
-    </motion.div>
+        <Summary ref={summaryRef} />
+        <div
+          ref={orderCardRef}
+          className='overflow-scroll h-fit overflow-x-hidden mt-3 rounded-md shadow-md max-h-[60vh] md:max-h-[50vh] lg:max-h-[40vh]'
+        >
+          {items.map(item => {
+            const { img } = db.find(el => el.name === item.name);
+            return (
+              <OrderCard
+                price={item.price}
+                quantity={item.quantity}
+                name={item.name}
+                key={item.name}
+                img={img}
+              />
+            );
+          })}
+        </div>
+      </motion.div>}
+    </AnimatePresence>
   );
 }
-
-const Summary = () => {
-  return (
-    <div className='flex flex-col items-center'>
-      <div className='h-[5px] w-16 bg-slate-300 my-2 rounded-md'></div>
-      <div className='flex justify-around w-full py-8'>
-        <h3 className='text-xl font-semibold'>Subtotal:</h3>
-        <p>Rp60.000</p>
-      </div>
-      <button className='bg-mangoTango rounded-md w-fit px-10 py-[6px] text-white font-semibold hover:bg-[#e04609]'>
-        Checkout
-      </button>
-    </div>
-  );
-};

@@ -1,19 +1,14 @@
 import Image from "next/image";
 import { useState } from "react";
-import {
-  addItem,
-  removeItem,
-  selectedDraggableCart,
-  setItem,
-} from "../../context/cart-slice";
+import { addItem, removeItem } from "../../context/cart-slice";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { saveItem, selectedItems } from "../../context/memo-slice";
 
 export default function MenuCard({ item }) {
   const food = useSelector(selectedItems);
-  const [cart, setCart] = useState(!!food[item.name]);
-  const [quantity, setQuantity] = useState(food[item.name]);
+  const { quantity } = food.find(({ name }) => name === item.name) || {quantity: 0};
+  const [cart, setCart] = useState(quantity > 0);
   const dispatch = useDispatch();
 
   const formatter = Intl.NumberFormat("id-ID", {
@@ -22,7 +17,6 @@ export default function MenuCard({ item }) {
   });
 
   const cartHandler = () => {
-    setQuantity(food[item.name] + 1 || 1);
     dispatch(
       addItem({
         name: item.name,
@@ -31,12 +25,17 @@ export default function MenuCard({ item }) {
     );
     setCart(true);
     // setQuantity is asynchronous update, so we handle with + 1
-    dispatch(saveItem({ [item.name]: 1 }));
+    dispatch(
+      saveItem({
+        name: item.name,
+        quantity: 1,
+        price: item.price,
+      })
+    );
   };
 
   const removeHandler = () => {
     if (quantity > 1) {
-      setQuantity(prev => prev - 1);
       dispatch(
         removeItem({
           name: item.name,
@@ -45,7 +44,6 @@ export default function MenuCard({ item }) {
       );
     } else {
       setCart(false);
-      setQuantity(prev => prev - 1);
       dispatch(
         removeItem({
           name: item.name,
@@ -53,7 +51,9 @@ export default function MenuCard({ item }) {
         })
       );
     }
-    dispatch(saveItem({ [item.name]: quantity - 1 }));
+    dispatch(
+      saveItem({ name: item.name, quantity: quantity - 1, price: item.price })
+    );
   };
 
   const addHandler = () => {
@@ -63,8 +63,9 @@ export default function MenuCard({ item }) {
         price: item.price,
       })
     );
-    setQuantity(prev => prev + 1);
-    dispatch(saveItem({ [item.name]: quantity + 1 }));
+    dispatch(
+      saveItem({ name: item.name, quantity: quantity + 1, price: item.price })
+    );
   };
 
   return (
@@ -77,7 +78,7 @@ export default function MenuCard({ item }) {
           {item.name}
         </h1>
         <div className='flex gap-6 text-sm justify-center mt-4'>
-          {!cart && (
+          {quantity === 0 && (
             <button
               onClick={cartHandler}
               className='duration-200 bg-mangoTango hover:bg-mango text-white w-28 font-semibold py-2 rounded-sm'
@@ -85,7 +86,7 @@ export default function MenuCard({ item }) {
               Add to Cart
             </button>
           )}
-          {cart && (
+          {quantity > 0 && (
             <div className='rounded-sm flex justify-center py-1 duration-200 bg-mangoTango text-white w-28 font-semibold overflow-hidden'>
               <button
                 className='bg-mangoTango basis-[30%] text-xl'
