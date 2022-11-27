@@ -76,7 +76,7 @@ export default function Reminder() {
             onClick={closeHandler}
             className='cursor-pointer underline-offset-2 underline lg:text-base text-sm hover:font-semibold'
           >
-            No Thanks
+            No Thanks, I may delivery order
           </div>
         </div>
       </div>
