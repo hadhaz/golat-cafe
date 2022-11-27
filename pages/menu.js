@@ -7,11 +7,20 @@ import DraggableCart from "../components/cart/DraggableCard";
 import { useSelector } from "react-redux";
 import { selectedDraggableCart } from "../context/cart-slice";
 import Reminder from "../components/modal/Reminder";
+import Head from "next/head";
 
 export default function Menu() {
   const cart = useSelector(selectedDraggableCart);
   return (
     <>
+      <Head>
+        <title>Golat Cafe: Food Menus</title>
+        <meta
+          name='description'
+          content='Golat Cafe Foods & Drink Menus'
+        />
+        <link rel='icon' href='/coffee.ico' />
+      </Head>
       <CoffeeOverlay top={"100px"} />
       <Reminder />
       <Navbar />

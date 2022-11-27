@@ -15,12 +15,12 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Galat Cafe</title>
+        <title>Golat Cafe</title>
         <meta
           name='description'
-          content='Galat Cafe, Co-working Space, and Live Music'
+          content='Golat Cafe, Co-working Space, and Live Music'
         />
-        <link rel='icon' href='/favicon.ico' />
+        <link rel='icon' href='/coffee.ico' />
       </Head>
       <Reminder />
       <Navbar />

@@ -1,8 +1,17 @@
 import Navbar from "../components/header/Navbar";
+import Head from "next/head";
 
 export default function Reserve() {
   return (
     <>
+      <Head>
+        <title>Golat Cafe: Reservation</title>
+        <meta
+          name='description'
+          content='Reserve seats from our store to enjoy your life'
+        />
+        <link rel='icon' href='/coffee.ico' />
+      </Head>
       <Navbar />
       <main className='pt-20 mx-auto max-w-7xl'>
         <h1>CHOOSE YOUR SEATS</h1>
