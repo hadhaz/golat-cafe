@@ -21,9 +21,6 @@ export default function Menu() {
         />
         <link rel='icon' href='/coffee.ico' />
       </Head>
-      <CoffeeOverlay top={"100px"} />
-      <Reminder />
-      <Navbar />
       <main className='flex flex-col xl:gap-12 lg:gap-4 pt-16'>
         <motion.div
           animate={{ y: 0, opacity: 1 }}

@@ -1,29 +1,13 @@
 import Head from "next/head";
 import BestSeller from "../components/catalogue/BestSeller";
-import Navbar from "../components/header/Navbar";
 import Main from "../components/main/Main";
 import Link from "next/link";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import DraggableCart from "../components/cart/DraggableCard";
-import { useSelector } from "react-redux";
-import { selectedDraggableCart } from "../context/cart-slice";
-import Reminder from "../components/modal/Reminder";
 
 export default function Home() {
-  const draggableCartActive = useSelector(selectedDraggableCart);
-
   return (
     <>
-      <Head>
-        <title>Golat Cafe</title>
-        <meta
-          name='description'
-          content='Golat Cafe, Co-working Space, and Live Music'
-        />
-        <link rel='icon' href='/coffee.ico' />
-      </Head>
-      <Reminder />
-      <Navbar />
       <Main />
       <motion.div
         animate={{ y: 0, opacity: 1 }}
@@ -37,9 +21,7 @@ export default function Home() {
           Find More...
         </div>
       </Link>
-      <AnimatePresence>
-        {draggableCartActive && <DraggableCart />}
-      </AnimatePresence>
+      <DraggableCart />
     </>
   );
 }

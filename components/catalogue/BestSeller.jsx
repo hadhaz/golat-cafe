@@ -1,5 +1,3 @@
-import Carousel from "../carousel/Carousel";
-import items from "../../data/product.json";
 import Catalogue from "./Catalouge";
 
 export default function BestSeller() {

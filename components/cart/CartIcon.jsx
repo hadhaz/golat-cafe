@@ -6,7 +6,6 @@ import {
   onClick,
   selectedCumulativeQuantity,
 } from "../../context/cart-slice";
-import { selectedItems } from "../../context/memo-slice";
 
 export default function CartIcon() {
   const [warning, setWarning] = useState(false);

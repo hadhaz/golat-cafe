@@ -1,12 +1,11 @@
 import "../styles/globals.css";
-import { Provider } from "react-redux";
-import { store } from "../context/store";
+import Wrapper from "../components/layout/Wrapper";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <Provider store={store}>
+    <Wrapper>
       <Component {...pageProps} />
-    </Provider>
+    </Wrapper>
   );
 }
 
