@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { createWrapper } from "next-redux-wrapper";
 import authReducer from "./auth-slice";
 import cartReducer from "./cart-slice";
 import reminderReducer from "./reminder-slice";
 import memoReducer from "./memo-slice";
+import reservationReducer from "./reservation-slice";
 
 export const store = configureStore({
   reducer: {
@@ -11,7 +11,8 @@ export const store = configureStore({
     cart: cartReducer,
     reminder: reminderReducer,
     memo: memoReducer,
+    reservation: reservationReducer,
   },
 });
 
-export default store
+export default store;

@@ -10,6 +10,7 @@ export default function Komipa() {
         { cols: 2, len: 4 },
         { cols: 2, len: 4 },
       ]}
+      location='komipa'
     />
   );
 }

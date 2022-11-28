@@ -10,6 +10,7 @@ export default function Gmc() {
         { cols: 1, len: 8 },
         { cols: 2, len: 5 },
       ]}
+      location='gmc'
     />
   );
 }

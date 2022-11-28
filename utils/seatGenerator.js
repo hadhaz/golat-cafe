@@ -10,7 +10,10 @@ export function generate(request) {
     for (let j = 0; j < colLen; j++) {
       const temp2 = [];
       for (let k = 0; k < col * 2; k++) {
-        temp2.push({ no:sum, status: "available" });
+        temp2.push({
+          no: sum,
+          status: Math.random() > 0.5 ? "available" : "booked",
+        });
         sum += 1;
       }
       temp.push(temp2);
