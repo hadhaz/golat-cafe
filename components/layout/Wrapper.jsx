@@ -16,7 +16,6 @@ export default function Wrapper({ children }) {
         />
         <link rel='icon' href='/coffee.ico' />
       </Head>
-
       <Navbar />
       <CoffeeOverlay top={"80px"} />
       <Reminder />

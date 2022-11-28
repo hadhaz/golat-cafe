@@ -6,7 +6,7 @@ import { selectedCart } from "../../context/cart-slice";
 
 const Navbar = () => {
   return (
-    <header className='w-full fixed bg-rifleGreen left-1/2 -translate-x-1/2 z-10 bg- mx-auto max-w-7xl flex justify-between items-center px-10 py-3'>
+    <header className='w-full top-0 fixed bg-rifleGreen left-1/2 -translate-x-1/2 z-10 bg- mx-auto max-w-7xl flex justify-between items-center px-10 py-3'>
       <h1>
         <Link href='/'>
           <Image

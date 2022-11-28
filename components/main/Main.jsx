@@ -33,7 +33,7 @@ export default function Main() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.4 }}
-            className='rounded-sm overflow-hidden relative w-1/2 mt-12'
+            className='rounded-sm overflow-hidden relative w-1/2 mt-[4vw]'
           >
             <Image
               src='/coffee-banner.jpg'

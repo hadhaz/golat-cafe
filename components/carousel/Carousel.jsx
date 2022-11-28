@@ -6,6 +6,7 @@ import MenuCard from "../card/MenuCard";
 export default function Carousel({ items, type }) {
   const [loaded, setLoaded] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
+
   const [sliderRef, instanceRef] = useKeenSlider(
     {
       initial: 0,
@@ -16,7 +17,7 @@ export default function Carousel({ items, type }) {
         setLoaded(true);
       },
       slides: {
-        perView: 3,
+        perView: loaded ? window.innerWidth > 840 ? 3 : window.innerWidth > 520 ? 2 : 1 : 3,
       },
       loop: true,
     },
