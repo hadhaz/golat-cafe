@@ -13,6 +13,12 @@ module.exports = {
         rifleGreen: "#31452C",
         whiteOverlay: "rgba(255, 255, 255, 0.2)",
         deepOrange: "#e04609",
+        
+        grayAvailable: "#D9D9D9",
+      },
+      backgroundImage: {
+        greenOrange:
+        "linear-gradient(180deg, rgba(49,69,44,1) 16%, rgba(224,127,9,1) 80%)",
       },
       gridTemplateColumns: {
         // Simple 16 column grid
