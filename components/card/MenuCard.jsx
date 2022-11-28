@@ -26,6 +26,7 @@ export default function MenuCard({ item }) {
       addItem({
         name: item.name,
         price: item.price,
+
       })
     );
 
@@ -37,6 +38,7 @@ export default function MenuCard({ item }) {
         name: item.name,
         quantity: 1,
         price: item.price,
+        img:item.img
       })
     );
 
@@ -49,6 +51,7 @@ export default function MenuCard({ item }) {
         removeItem({
           name: item.name,
           price: item.price,
+
         })
       );
     } else {
@@ -56,11 +59,12 @@ export default function MenuCard({ item }) {
         removeItem({
           name: item.name,
           price: item.price,
+
         })
       );
     }
     dispatch(
-      saveItem({ name: item.name, quantity: quantity - 1, price: item.price })
+      saveItem({ name: item.name, quantity: quantity - 1, price: item.price, img:item.img })
     );
   };
 
@@ -69,10 +73,11 @@ export default function MenuCard({ item }) {
       addItem({
         name: item.name,
         price: item.price,
+        img: item.img
       })
     );
     dispatch(
-      saveItem({ name: item.name, quantity: quantity + 1, price: item.price })
+      saveItem({ name: item.name, quantity: quantity + 1, price: item.price, img:item.img })
     );
   };
 
