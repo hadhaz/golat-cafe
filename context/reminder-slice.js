@@ -12,16 +12,17 @@ export const reminder = createSlice({
   reducers: {
     popup: (state, action) => {
       state.isPopup = action.payload;
-      if (!action.payload) state.isClosed = true;
     },
     remind: (state, action) => {
       state.isReminder = action.payload;
-      state.isClosed = false;
+    },
+    close: (state, action) => {
+      state.isClosed = action.payload;
     },
   },
 });
 
-export const { popup, remind } = reminder.actions;
+export const { popup, remind, close } = reminder.actions;
 export const selectedPopup = state => state.reminder.isPopup;
 export const selectedIsPopupClosed = state => state.reminder.isClosed;
 export const selectedReminder = state => state.reminder.isReminder;
