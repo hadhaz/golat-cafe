@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  close,
   popup,
   remind,
   selectedIsPopupClosed,
@@ -20,34 +19,30 @@ export default function Reminder() {
 
   const reminderHandler = () => {
     dispatch(popup(false));
-    dispatch(close(true));
     dispatch(remind(true));
   };
 
   const closeHandler = () => {
     dispatch(popup(false));
-    dispatch(close(true));
   };
 
   const directHandler = () => {
     dispatch(popup(false));
     router.push("/reserve");
   };
-
   useEffect(() => {
     if (isReminder) {
       setTimeout(() => {
-        dispatch(close(false));
         dispatch(popup(true));
-        dispatch(remind(false));
-      }, 10000);
+      }, 100000);
+      dispatch(remind(false));
     }
 
     return () =>
       clearTimeout(
         setTimeout(() => {
           dispatch(popup(true));
-        }, 10000)
+        }, 100000)
       );
   }, [isReminder, dispatch]);
 
