@@ -1,9 +1,11 @@
 import { nanoid } from "@reduxjs/toolkit";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { selectedLogin } from "../../context/auth-slice";
 import {
   initialize,
   selectedSeats,
+  selectedTotalBooking,
   updateSeats,
 } from "../../context/reservation-slice";
 import { generate } from "../../utils/seatGenerator";
@@ -12,13 +14,13 @@ export default function Mapper({ req, location }) {
   const data = generate(req);
   const dispatch = useDispatch();
   const [loaded, setLoaded] = useState(false);
+  const total = useSelector(selectedTotalBooking);
+  const seats = useSelector(selectedSeats);
 
   useEffect(() => {
     dispatch(initialize({ seats: data, location }));
     setLoaded(true);
   }, []);
-
-  const seats = useSelector(selectedSeats);
 
   if (loaded)
     return (
@@ -29,13 +31,14 @@ export default function Mapper({ req, location }) {
             col={col}
             key={nanoid()}
             data={item}
+            total={total}
           />
         ))}
       </div>
     );
 }
 
-const DynamicGroup = ({ data, location, col }) => {
+const DynamicGroup = ({ data, location, col, total }) => {
   return (
     <div
       className={`grid w-full`}
@@ -60,6 +63,7 @@ const DynamicGroup = ({ data, location, col }) => {
               idx={idx}
               line={line}
               location={location}
+              total={total}
             />
           ))}
         </div>
@@ -68,9 +72,16 @@ const DynamicGroup = ({ data, location, col }) => {
   );
 };
 
-const AtomicItem = ({ no, status, location, col, idx, line }) => {
+const AtomicItem = ({ no, status, location, col, idx, line, total }) => {
   const dispatch = useDispatch();
-  const clickHandler = e => {
+  const isLoggedIn = useSelector(selectedLogin);
+
+  const clickHandler = () => {
+    if (!isLoggedIn && total + 1 > 2 && status === "available") {
+      alert("Login untuk memesan lebih dari dua kursi");
+      return;
+    }
+
     if (status !== "booked")
       dispatch(
         updateSeats({
@@ -92,12 +103,13 @@ const AtomicItem = ({ no, status, location, col, idx, line }) => {
           status === "available"
             ? "#D9D9D9"
             : status === "chosen"
-            ? "linear-gradient(180deg, rgba(49,69,44,1) 16%, rgba(224,127,9,1) 80%)"
+            ? "#03fc35"
             : "#ef4444",
       }}
-      className='bg-grayAvailable w-6 h-6 text-center rounded-sm'
+      className='cursor-pointer bg-grayAvailable w-6 h-6 text-center rounded-sm'
     >
       {no}
     </div>
   );
 };
+

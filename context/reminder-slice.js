@@ -4,6 +4,7 @@ const initialState = {
   isReminder: false,
   isPopup: false,
   isClosed: false,
+  firstOrder: true,
 };
 
 export const reminder = createSlice({
@@ -18,11 +19,15 @@ export const reminder = createSlice({
       state.isReminder = action.payload;
       state.isClosed = false;
     },
+    setFirstOrder: (state, action) => {
+      state.firstOrder = action.payload;
+    },
   },
 });
 
-export const { popup, remind } = reminder.actions;
+export const { popup, remind, setFirstOrder } = reminder.actions;
 export const selectedPopup = state => state.reminder.isPopup;
 export const selectedIsPopupClosed = state => state.reminder.isClosed;
 export const selectedReminder = state => state.reminder.isReminder;
+export const selectedFirstOrder = state => state.reminder.firstOrder;
 export default reminder.reducer;

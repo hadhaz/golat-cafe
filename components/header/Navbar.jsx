@@ -17,29 +17,21 @@ const Navbar = () => {
           />
         </Link>
       </h1>
-      <nav>
+      <nav className="">
         <ul className='justify-center flex gap-6 text-sm'>
           <Link href='/store'>
             <li>Find Store</li>
           </Link>
-          <Link href='/reserve'>
-            <li>Reserve</li>
-          </Link>
+
           <Link href='/menu'>
             <li>Catalogue</li>
           </Link>
-          <Link href='/delivery'>
-            <li>Delivery</li>
-          </Link>
+          <li>FAQ</li>
         </ul>
       </nav>
       <div className='flex gap-2 items-center'>
         <Link href='/auth/login'>
           <button>Login</button>
-        </Link>
-        <div>|</div>
-        <Link href='/auth/register'>
-          <button>Register</button>
         </Link>
         <CartIcon />
       </div>

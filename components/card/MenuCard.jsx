@@ -4,10 +4,14 @@ import { addItem, onClick, removeItem } from "../../context/cart-slice";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { saveItem, selectedItems } from "../../context/memo-slice";
-import { popup } from "../../context/reminder-slice";
+import {
+  popup,
+  selectedFirstOrder,
+  setFirstOrder,
+} from "../../context/reminder-slice";
 
 export default function MenuCard({ item }) {
-  const [firstOrder, setFirstOrder] = useState(true);
+  const firstOrder = useSelector(selectedFirstOrder);
   const food = useSelector(selectedItems);
   const { quantity } = food.find(({ name }) => name === item.name) || {
     quantity: 0,
@@ -21,12 +25,15 @@ export default function MenuCard({ item }) {
   });
 
   const cartHandler = () => {
-    firstOrder ? dispatch(popup(true)) : "";
+    if (firstOrder) {
+      dispatch(popup(true));
+      dispatch(setFirstOrder(false));
+    }
+
     dispatch(
       addItem({
         name: item.name,
         price: item.price,
-
       })
     );
 
@@ -38,11 +45,9 @@ export default function MenuCard({ item }) {
         name: item.name,
         quantity: 1,
         price: item.price,
-        img:item.img
+        img: item.img,
       })
     );
-
-    setFirstOrder(false);
   };
 
   const removeHandler = () => {
@@ -51,7 +56,6 @@ export default function MenuCard({ item }) {
         removeItem({
           name: item.name,
           price: item.price,
-
         })
       );
     } else {
@@ -59,12 +63,16 @@ export default function MenuCard({ item }) {
         removeItem({
           name: item.name,
           price: item.price,
-
         })
       );
     }
     dispatch(
-      saveItem({ name: item.name, quantity: quantity - 1, price: item.price, img:item.img })
+      saveItem({
+        name: item.name,
+        quantity: quantity - 1,
+        price: item.price,
+        img: item.img,
+      })
     );
   };
 
@@ -73,11 +81,16 @@ export default function MenuCard({ item }) {
       addItem({
         name: item.name,
         price: item.price,
-        img: item.img
+        img: item.img,
       })
     );
     dispatch(
-      saveItem({ name: item.name, quantity: quantity + 1, price: item.price, img:item.img })
+      saveItem({
+        name: item.name,
+        quantity: quantity + 1,
+        price: item.price,
+        img: item.img,
+      })
     );
   };
 

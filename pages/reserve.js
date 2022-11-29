@@ -4,27 +4,72 @@ import Head from "next/head";
 import Komipa from "../components/maps/Komipa";
 import Gmc from "../components/maps/Gmc";
 import Sardjito from "../components/maps/Sardjito";
-import { useSelector } from "react-redux";
-import { selectedTotalBooking } from "../context/reservation-slice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  initialize,
+  selectedFixOrder,
+  selectedOnBooking,
+  selectedTotalBooking,
+  setBooking,
+} from "../context/reservation-slice";
+import ReserveModal from "../components/modal/ReserveModal";
+import { generate } from "../utils/seatGenerator";
 
 export default function Reserve() {
   const [loc, setLoc] = useState();
+  const dispatch = useDispatch();
   const totalBooking = useSelector(selectedTotalBooking);
+  const isConfirmed = useSelector(selectedFixOrder);
+  const isOnBooking = useSelector(selectedOnBooking);
 
   const locHandler = e => {
     setLoc(e.target.value);
   };
 
+  const confirmHandler = () => {
+    if (totalBooking === 0) {
+      alert("Please Order");
+      return;
+    }
+    dispatch(setBooking(true));
+  };
+
+  const timeHandler = () => {
+    const req =
+      loc === "GMC"
+        ? [
+            { cols: 2, len: 5 },
+            { cols: 1, len: 8 },
+            { cols: 1, len: 8 },
+            { cols: 2, len: 5 },
+          ]
+        : loc === "SARDJITO"
+        ? [
+            { cols: 2, len: 4 },
+            { cols: 2, len: 4 },
+            { cols: 2, len: 4 },
+            { cols: 2, len: 4 },
+          ]
+        : [
+            { cols: 3, len: 5 },
+            { cols: 3, len: 3 },
+            { cols: 2, len: 4 },
+            { cols: 2, len: 4 },
+          ];
+
+    const data = generate(req);
+
+    dispatch(initialize({ seats: data, location: loc }));
+  };
+
   let LocationMap;
-  if (loc === "gmc") {
+  if (loc === "GMC") {
     LocationMap = <Gmc />;
-  } else if (loc === "sardjito") {
+  } else if (loc === "SARDJITO") {
     LocationMap = <Sardjito />;
   } else {
     LocationMap = <Komipa />;
   }
-
-  console.log(loc);
 
   return (
     <>
@@ -43,16 +88,31 @@ export default function Reserve() {
         </h1>
         <select
           onChange={locHandler}
+          defaultValue='KOMIPA'
           name='outlet'
           id='outlet'
           className='bg-mangoTango px-3 font-medium rounded-md w-fit py-1'
         >
-          <option value='gmc'>Foodcourt GMC</option>
-          <option value='komipa'>Komipa UGM</option>
-          <option value='sardjito'>Sardjito Food Corner</option>
+          <option value='GMC'>Foodcourt GMC</option>
+          <option value='KOMIPA'>Komipa UGM</option>
+          <option value='SARDJITO'>Sardjito Food Corner</option>
+        </select>
+        <select
+          onChange={timeHandler}
+          defaultValue='9'
+          name='time'
+          id='time'
+          className='bg-mango outline-none text-black mt-2 px-3 font-medium rounded-md w-fit py-1'
+        >
+          <option value='9'>09.00 - 10.00</option>
+          <option value='10'>10.00 - 11.00</option>
+          <option value='11'>11.00 - 12.00</option>
+          <option value='12'>12.00 - 13.00</option>
+          <option value='13'>13.00 - 14.00</option>
+          <option value='14'>14.00 - 15.00</option>
         </select>
         <div className='max-w-[90%] z-10 relative grid grid-cols-7 mt-6 gap-4'>
-          <div className='col-span-6 bg-[#585E3E] py-[5vw] px-[6vw] rounded-md'>
+          <div className='col-span-6 bg-[#f5f5f5] py-[5vw] px-[6vw] rounded-md'>
             {LocationMap}
           </div>
           <div className='col-span-1 bg-slate-800 font-medium h-fit w-fit py-6 flex items-start flex-col gap-y-3 px-8 justify-center rounded-md text-sm'>
@@ -61,7 +121,7 @@ export default function Reserve() {
               <div>Available</div>
             </div>
             <div className='flex gap-2 items-center'>
-              <div className='bg-greenOrange w-8 h-8 rounded-md'></div>
+              <div className='bg-[#03fc35] w-8 h-8 rounded-md'></div>
               <div>Chosen</div>
             </div>
             <div className='flex gap-2 items-center'>
@@ -70,10 +130,18 @@ export default function Reserve() {
             </div>
           </div>
         </div>
-        <button className='bg-mangoTango min-w-[180px] py-[6px] font-medium rounded-md mt-5 w-fit self-center'>
-          Confirm ({totalBooking})
+        <button
+          onClick={confirmHandler}
+          style={{
+            background: isConfirmed ? "rgb(226 232 240)" : "rgb(224 127 9)",
+            color: isConfirmed ? "#000" : "inherit",
+          }}
+          className='bg-mangoTango min-w-[180px] py-[6px] font-medium rounded-md mt-5 w-fit self-center'
+        >
+          {isConfirmed ? "OK" : `Confirm (${totalBooking})`}
         </button>
       </main>
+      {isOnBooking && <ReserveModal />}
     </>
   );
 }

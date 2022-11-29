@@ -14,7 +14,7 @@ export default function CartIcon() {
 
   const draggableHandler = () => {
     if (quantity > 0) {
-      dispatch(onClick());
+      dispatch(onClick(true));
       dispatch(disableCart(false));
     } else {
       setWarning(true);
