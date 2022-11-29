@@ -1,11 +1,19 @@
 import Image from "next/image";
-import Link from "next/link";
 import { motion } from "framer-motion";
 import Floating from "./Floating";
+import { useDispatch, useSelector } from "react-redux";
+import { modalReducer, selectedModal } from "../../context/ui-slice";
+import OrderMethod from "../modal/OrderMethod";
 
 export default function Main() {
+  const modalActive = useSelector(selectedModal);
+  const dispatch = useDispatch();
+  function handleOrder() {
+    dispatch(modalReducer(true));
+  }
   return (
     <>
+      {modalActive && <OrderMethod />}
       <div className='pt-20 relative max-w-7xl w-screen overflow-hidden mx-auto grid grid-cols-5'>
         <section className='col-span-2 flex flex-col gap-y-8 p-6 px-12'>
           <div className='hover:bg-[#848e57] duration-300 cursor-pointer flex gap-1 bg-[#585E3E] w-fit px-4 font-semibold py-2 rounded-md'>
@@ -20,11 +28,12 @@ export default function Main() {
             &apos;work&apos; part of coworking should be as attractive as the
             &apos;co&apos; part.”
           </p>
-          <Link href='/reserve'>
-            <button className='bg-[#E07F09] hover:bg-[#e04609] duration-300 font-medium px-4 py-2 rounded-sm'>
-              Reserve Now
-            </button>
-          </Link>
+          <button
+            onClick={handleOrder}
+            className='bg-[#E07F09] lg:w-[70%] xl:w-[50%] hover:bg-[#e04609] duration-300 font-medium px-6 py-2 rounded-sm'
+          >
+            Order Now
+          </button>
         </section>
 
         <div className='relative h-fit col-span-3 mb-24'>

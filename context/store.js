@@ -4,6 +4,7 @@ import cartReducer from "./cart-slice";
 import reminderReducer from "./reminder-slice";
 import memoReducer from "./memo-slice";
 import reservationReducer from "./reservation-slice";
+import uiReducer from "./ui-slice";
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
     reminder: reminderReducer,
     memo: memoReducer,
     reservation: reservationReducer,
+    ui: uiReducer,
   },
 });
 

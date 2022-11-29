@@ -1,8 +1,9 @@
 import { useRouter } from "next/router";
-import { use, useRef, useState } from "react";
+import { use, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addIdentity,
+  clearSaved,
   confirmOrder,
   selectedSavedReservation,
   setBooking,
@@ -26,6 +27,7 @@ export default function ReserveModal() {
   const closeHandler = () => {
     dispatch(setBooking(false));
   };
+
 
   return (
     <div className='w-screen h-screen z-50 bg-whiteOverlay flex justify-center items-center fixed top-0'>
@@ -82,11 +84,21 @@ const PhoneMethod = () => {
     router.push("order");
   };
 
+  const closeHandler = () => {
+    dispatch(setBooking(false));
+  };
+
   return (
     <form
       onSubmit={submitHandler}
-      className='bg-dairyCream px-12 shadow-lg shadow-black text-black w-fit py-10 flex flex-col items-center justify-center'
+      className='bg-dairyCream relative px-12 shadow-lg shadow-black text-black w-fit py-10 flex flex-col items-center justify-center'
     >
+      <div
+        onClick={closeHandler}
+        className='absolute top-1 right-2 cursor-pointer'
+      >
+        <Image src='/close.svg' alt='close' width={20} height={20} />
+      </div>
       <h1 className='font-semibold text-lg xl:text-2xl lg:text-xl'>
         Reservation Form
       </h1>

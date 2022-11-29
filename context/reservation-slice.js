@@ -67,7 +67,10 @@ export const reservation = createSlice({
       state.onBooking = payload;
     },
     clearSaved: state => {
-      state.saved.meta = []
+      state.saved.meta = [];
+    },
+    updateLocation: (state, { payload }) => {
+      state.location = payload;
     },
   },
 });
@@ -94,6 +97,7 @@ export const {
   confirmOrder,
   addIdentity,
   setBooking,
-  clearSaved
+  clearSaved,
+  updateLocation,
 } = reservation.actions;
 export default reservation.reducer;

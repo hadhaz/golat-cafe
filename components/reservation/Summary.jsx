@@ -1,4 +1,3 @@
-import { nanoid } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
 import {
   selectedIdentity,
@@ -10,40 +9,57 @@ export default function Summary() {
   const identity = useSelector(selectedIdentity);
 
   return (
-    <div className='top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 bg-dairyCream text-black py-5 max-w-[55%] rounded-md fixed'>
-      <h1 className='text-center font-semibold text-xl mb-4'>
+    <div className='flex flex-col top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 bg-[#e6e6e6] text-black pb-5 max-w-[65%] w-full rounded-md fixed'>
+      <h1 className='text-center font-semibold text-xl mb-4 border-b-2 border-black py-4'>
         Reservation Invoice
       </h1>
-      <section className='px-8 font-medium'>
+      <section id="invoice" className='px-8 font-medium flex flex-col w-full gap-y-2'>
         <div className='flex gap-2'>
-          <h3>Name:</h3>
-          <p>{identity.name}</p>
+          <h3 className='w-full border basis-1/3 border-black px-1'>
+            Booking Code:
+          </h3>
+          <p className='border border-black w-full px-2'>{details.id}</p>
         </div>
         <div className='flex gap-2'>
-          <h3>Phone Number:</h3>
-          <p>{identity.phone}</p>
+          <h3 className='w-full border basis-1/3 border-black px-1'>Name:</h3>
+          <p className='border border-black w-full px-2'>{identity.name}</p>
         </div>
         <div className='flex gap-2'>
-          <h3>Booking Code:</h3>
-          <p>{details.id}</p>
+          <h3 className='w-full border basis-1/3 border-black px-1'>
+            Phone Number:
+          </h3>
+          <p className='border border-black w-full px-2'>{identity.phone}</p>
+        </div>
+
+        <div className='flex gap-2'>
+          <h3 className='w-full border basis-1/3 border-black px-1'>
+            Order Date:
+          </h3>
+          <p className='border border-black w-full px-2'>{details.date}</p>
         </div>
         <div className='flex gap-2'>
-          <h3>Order Date:</h3>
-          <p>{details.date}</p>
+          <h4 className='w-full border basis-1/3 border-black px-1'>
+            Location:
+          </h4>
+          <p className='border border-black w-full px-2'>{details.location}</p>
         </div>
         <div className='flex gap-2'>
-          <h4>Location:</h4>
-          <p>{details.location}</p>
-        </div>
-        <div>
-          <h4>Seats Number:</h4>
-          <div className='flex flex-col'>
-            {details.seats.map(item => (
-              <p key={nanoid()}>- {item.no}</p>
-            ))}
-          </div>
+          <h4 className='w-full border basis-1/3 border-black px-1'>
+            Seats Number:
+          </h4>
+          <p className='border border-black w-full px-2'>
+            {details.seats.map(
+              (item, idx) =>
+                item.no + (idx === details.seats.length - 1 ? " " : ", ")
+            )}
+          </p>
         </div>
       </section>
+      <button
+        className='w-[85%] md:w-[75%] lg:w-60 hover:bg-deepOrange mt-5 bg-mangoTango text-white mx-auto rounded-md font-medium py-2 '
+      >
+        Save Invoice
+      </button>
     </div>
   );
 }

@@ -8,6 +8,7 @@ import {
   selectedTotalBooking,
   updateSeats,
 } from "../../context/reservation-slice";
+import { modalReducer } from "../../context/ui-slice";
 import { generate } from "../../utils/seatGenerator";
 
 export default function Mapper({ req, location }) {
@@ -78,7 +79,7 @@ const AtomicItem = ({ no, status, location, col, idx, line, total }) => {
 
   const clickHandler = () => {
     if (!isLoggedIn && total + 1 > 2 && status === "available") {
-      alert("Login untuk memesan lebih dari dua kursi");
+      dispatch(modalReducer(true));
       return;
     }
 
@@ -112,4 +113,3 @@ const AtomicItem = ({ no, status, location, col, idx, line, total }) => {
     </div>
   );
 };
-

@@ -21,7 +21,7 @@ export default function Menu() {
         />
         <link rel='icon' href='/coffee.ico' />
       </Head>
-      <main className='flex flex-col xl:gap-12 lg:gap-4 pt-16'>
+      <main className='flex flex-col xl:gap-12 lg:gap-4 pt-16 mb-12'>
         <motion.div
           animate={{ y: 0, opacity: 1 }}
           initial={{ y: "30vh", opacity: 0 }}
