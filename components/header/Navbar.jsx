@@ -17,7 +17,7 @@ const Navbar = () => {
           />
         </Link>
       </h1>
-      <nav className="">
+      <nav className="hidden md:block">
         <ul className='justify-center flex gap-6 text-sm'>
           <Link href='/store'>
             <li>Our Store</li>
@@ -29,11 +29,14 @@ const Navbar = () => {
           <li>FAQ</li>
         </ul>
       </nav>
-      <div className='flex gap-2 items-center'>
+      <div className='hidden md:flex gap-2 items-center'>
         <Link href='/auth/login'>
           <button>Login</button>
         </Link>
         <CartIcon />
+      </div>
+      <div className="md:hidden cursor-pointer">
+        <Image src='/menu.svg' width={24} height={24} alt='menu'/>
       </div>
     </header>
   );

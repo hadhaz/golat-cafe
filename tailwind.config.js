@@ -11,7 +11,7 @@ module.exports = {
         mango: "#ffbc6b",
         dairyCream: "#F4E6CD",
         rifleGreen: "#31452C",
-        whiteOverlay: "rgba(255, 255, 255, 0.2)",
+        whiteOverlay: "rgba(0, 0, 0, 0.4)",
         deepOrange: "#e04609",
         
         grayAvailable: "#D9D9D9",

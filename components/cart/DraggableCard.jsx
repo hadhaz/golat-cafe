@@ -38,7 +38,6 @@ export default function DraggableCart() {
     setYPos(orderCardRef?.current?.clientHeight);
   }, [items]);
 
-  console.log(count);
 
   return (
     <AnimatePresence>

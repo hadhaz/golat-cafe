@@ -11,11 +11,11 @@ export const memo = createSlice({
     saveItem: (state, { payload }) => {
       const target = state.items.find(item => item.name === payload.name);
       if (target) {
-        target.img = payload.img
+        target.img = payload.img;
         if (payload.quantity > 0) target.quantity = payload.quantity;
-        else state.items = state.items.filter(item => item.name !== payload.name)
+        else
+          state.items = state.items.filter(item => item.name !== payload.name);
       } else {
-        console.log(payload)
         state.items.push(payload);
       }
     },

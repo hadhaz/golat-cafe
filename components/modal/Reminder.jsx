@@ -30,6 +30,7 @@ export default function Reminder() {
     dispatch(popup(false));
     router.push("/reserve");
   };
+  
   useEffect(() => {
     if (isReminder) {
       setTimeout(() => {
@@ -49,7 +50,7 @@ export default function Reminder() {
   if (isPopup && !isPopupClosed)
     return (
       <div className='w-screen h-screen z-50 bg-whiteOverlay flex justify-center items-center fixed top-0'>
-        <div className='bg-dairyCream shadow-lg shadow-black text-black w-fit py-10 flex flex-col items-center justify-center'>
+        <div className='bg-dairyCream  shadow-lg rounded-lg text-black w-fit py-10 flex flex-col items-center justify-center'>
           <h1 className='font-semibold text-lg xl:text-2xl lg:text-xl'>
             Don&apos;t you want to reserve a seat first?
           </h1>
