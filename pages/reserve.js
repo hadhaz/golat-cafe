@@ -79,13 +79,12 @@ export default function Reserve() {
         </div>
         <button
           onClick={confirmHandler}
-          style={{
-            background: isConfirmed ? "rgb(226 232 240)" : "rgb(224 127 9)",
-            color: isConfirmed ? "#000" : "inherit",
-          }}
-          className='bg-mangoTango min-w-[180px] py-[6px] font-medium rounded-md mt-5 w-fit self-center'
+          disabled={totalBooking === 0}
+          className='bg-mangoTango min-w-[180px] disabled:bg-slate-300 disabled:text-black disabled:cursor-not-allowed py-[6px] font-medium rounded-md mt-5 w-fit self-center'
         >
-          {isConfirmed ? "OK" : `Confirm (${totalBooking})`}
+          {isConfirmed
+            ? "OK"
+            : `Confirm ${totalBooking > 0 ? "(" + totalBooking + ")" : ""}`}
         </button>
       </motion.main>
       {isOnBooking && <ReserveModal />}

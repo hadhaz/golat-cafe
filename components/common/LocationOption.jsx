@@ -1,11 +1,12 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { updateLocation } from "../../context/reservation-slice";
+import { clearSaved, updateLocation } from "../../context/reservation-slice";
 
 export default function LocationOption() {
   const dispatch = useDispatch();
 
   const locHandler = e => {
+    dispatch(clearSaved());
     dispatch(updateLocation(e.target.value));
   };
 

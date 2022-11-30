@@ -58,7 +58,7 @@ export default function Summary() {
       <button
         className='w-[85%] md:w-[75%] lg:w-60 hover:bg-deepOrange mt-5 bg-mangoTango text-white mx-auto rounded-md font-medium py-2 '
       >
-        Save Invoice
+        Order Food
       </button>
     </div>
   );

@@ -1,11 +1,9 @@
 import { useRouter } from "next/router";
-import { use, useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useRef, useState } from "react";
+import { useDispatch} from "react-redux";
 import {
   addIdentity,
-  clearSaved,
   confirmOrder,
-  selectedSavedReservation,
   setBooking,
 } from "../../context/reservation-slice";
 import Image from "next/image";
@@ -32,7 +30,7 @@ export default function ReserveModal() {
   return (
     <div className='w-screen h-screen z-50 bg-whiteOverlay flex justify-center items-center fixed top-0'>
       {!method && (
-        <div className='relative bg-dairyCream px-12 shadow-lg shadow-black text-black w-fit py-10 flex flex-col items-center justify-center'>
+        <div className='relative rounded-md bg-dairyCream px-12 shadow-lg text-black w-fit py-10 flex flex-col items-center justify-center'>
           <div
             onClick={closeHandler}
             className='absolute top-1 right-2 cursor-pointer'
@@ -46,14 +44,14 @@ export default function ReserveModal() {
           <div className='flex mt-4 gap-6 w-full font-medium justify-center'>
             <button
               onClick={handleLoginMethod}
-              className='w-1/2 bg-mangoTango hover:bg-deepOrange text-center text-white border-[3px] border-transparent duration-300'
+              className='w-1/2 bg-mangoTango rounded-sm hover:bg-deepOrange text-center text-white border-[3px] border-transparent duration-300'
             >
               Login
             </button>
 
             <button
               onClick={handlePhoneMethod}
-              className='w-1/2 py-1  border-[3px] border-mangoTango hover:bg-mango duration-300'
+              className='w-1/2 py-1  border-[3px] rounded-sm border-mangoTango hover:bg-mango duration-300'
             >
               Number Phone
             </button>

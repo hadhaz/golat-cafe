@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { selectedLocation } from "../../context/reservation-slice";
+import { clearSaved, selectedLocation } from "../../context/reservation-slice";
 import map from "../../utils/map";
 import { generate } from "../../utils/seatGenerator";
 import { initialize } from "../../context/reservation-slice";
@@ -8,6 +8,7 @@ export default function TimeOption() {
   const location = useSelector(selectedLocation);
   const dispatch = useDispatch();
   const timeHandler = () => {
+    dispatch(clearSaved());
     const req =
       location === "GMC"
         ? map.gmc
