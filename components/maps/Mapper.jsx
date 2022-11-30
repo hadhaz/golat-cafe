@@ -25,7 +25,7 @@ export default function Mapper({ req, location }) {
 
   if (loaded)
     return (
-      <div className='gap-y-6 w-full items-center flex flex-col text-black font-medium'>
+      <div className='gap-y-6 min-w-[500px] z-0 w-full items-center flex flex-col text-black font-medium'>
         {seats.map((item, col) => (
           <DynamicGroup
             location={location}

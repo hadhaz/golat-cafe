@@ -34,9 +34,9 @@ export default function Progress1({ next }) {
   }
   return (
     <motion.main
-      initial={{ y: "-95vh" }}
-      animate={{ y: 0 }}
-      exit={{ y: "95vh" }}
+      initial={{ x: "-95vw" }}
+      animate={{ x: 0 }}
+      exit={{ x: "95vw" }}
       className='mt-24 mb-12 mx-auto max-w-7xl px-10 flex flex-col'
     >
       <h1 className='w-full mb-6 text-center font-semibold text-2xl lg:text-3xl'>
@@ -45,7 +45,7 @@ export default function Progress1({ next }) {
       <LocationOption />
       <TimeOption />
       <div className='max-w-[90%] z-10 relative grid grid-cols-7 mt-6 gap-4'>
-        <div className='col-span-6 bg-[#f5f5f5] py-[5vw] px-[6vw] rounded-md'>
+        <div className='col-span-7 md:col-span-6 overflow-x-scroll bg-[#f5f5f5] py-[5vw] px-[6vw] rounded-md'>
           {LocationMap}
         </div>
         <Legend />

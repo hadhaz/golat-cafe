@@ -14,7 +14,7 @@ export default function Main() {
   return (
     <>
       {modalActive && <OrderMethod />}
-      <div className='pt-20 relative flex-col flex max-w-7xl w-screen overflow-hidden mx-auto lg:grid lg:grid-cols-5'>
+      <motion.div animate={{y:0}} initial={{y:'-100vh'}} transition={{type:'tween'}} className='pt-20 relative flex-col flex max-w-7xl w-screen overflow-hidden mx-auto lg:grid lg:grid-cols-5'>
         <section className='col-span-2 flex flex-col gap-y-8 p-6 md:px-12'>
           <div className='hover:bg-[#848e57] duration-300 cursor-pointer flex gap-1 bg-[#585E3E] w-fit px-4 font-semibold py-2 rounded-md'>
             <Image src='/coffee.svg' alt='coffee cup' width={20} height={20} />
@@ -65,7 +65,7 @@ export default function Main() {
             />
           </motion.div>
         </div>
-      </div>
+      </motion.div>
     </>
   );
 }
