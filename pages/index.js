@@ -9,11 +9,7 @@ export default function Home() {
   return (
     <>
       <Main />
-      <motion.div
-        animate={{ y: 0, opacity: 1 }}
-        initial={{ y: "-30vh", opacity: 0 }}
-        exit={{ y: "-50vh" }}
-      >
+      <motion.div animate={{ opacity: 1 }} initial={{ opacity: 0 }} transition={{delay: 0.5}}>
         <BestSeller />
       </motion.div>
       <Link href='/menu'>

@@ -1,5 +1,4 @@
-import { PDFExport, savePDF } from "@progress/kendo-react-pdf";
-import { Grid, GridColumn as Column } from "@progress/kendo-react-grid";
+import { PDFExport } from "@progress/kendo-react-pdf";
 import { useEffect, useRef, useState } from "react";
 import { nanoid } from "@reduxjs/toolkit";
 
@@ -35,7 +34,7 @@ export default function Invoice() {
 
   if (loaded)
     return (
-      <div className='mx-auto max-w-7xl mt-24 flex flex-col'>
+      <div className='mx-auto rounded-md max-w-7xl mt-28 flex flex-col'>
         <PDFExport
           paperSize='auto'
           margin={40}
@@ -43,7 +42,10 @@ export default function Invoice() {
           author='KendoReact Team'
           ref={pdfExportComponent}
         >
-          <div ref={container} className='bg-white text-black py-10 px-10'>
+          <div
+            ref={container}
+            className='bg-white mx-auto max-w-4xl rounded-md text-black py-10 px-10'
+          >
             <h3 className='text-2xl font-semibold text-center'>
               Order Invoice
             </h3>
@@ -52,6 +54,14 @@ export default function Invoice() {
                 Booking ID:
               </h4>
               <p className='border-2  py-1 px-2 basis-2/3'>{data.orderId}</p>
+            </div>
+            <div className='flex mt-3 w-full gap-3'>
+              <h4 className='border-2  py-1 px-2 basis-1/3 text-center'>
+                Phone Number:
+              </h4>
+              <p className='border-2  py-1 px-2 basis-2/3'>
+                {data.phoneNumber}
+              </p>
             </div>
             <div className='flex mt-3 w-full gap-3'>
               <h4 className='border-2  py-1 px-2 basis-1/3 text-center'>
@@ -91,33 +101,31 @@ export default function Invoice() {
                   <th className='font-medium border border-collapse'>
                     Quantity
                   </th>
-                  <th className='font-medium border border-collapse'>
+                  <th className='py-1 font-medium border border-collapse'>
                     Price
                   </th>
-                  <th className='font-medium border border-collapse'>
-                    Total
-                  </th>
+                  <th className='font-medium border border-collapse'>Total</th>
                 </tr>
               </thead>
               <tbody>
                 {data.food.items.map(item => (
                   <tr key={nanoid()}>
                     <td className='border border-collapse'>{item.name}</td>
-                    <td className='border border-collapse'>
-                      {item.quantity}
+                    <td className='border border-collapse'>{item.quantity}</td>
+                    <td className='py-1 border border-collapse'>
+                      {item.price}
                     </td>
-                    <td className='border border-collapse'>{item.price}</td>
                     <td className='border border-collapse'>{item.total}</td>
                   </tr>
                 ))}
                 <tr>
                   <td
                     colSpan='3'
-                    className='border border-collapse font-medium'
+                    className='py-1 border border-collapse font-medium'
                   >
                     Total Price:
                   </td>
-                  <td className='border border-collapse'>
+                  <td className='py-1 border font-medium border-collapse'>
                     {data.food.total}
                   </td>
                 </tr>

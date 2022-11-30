@@ -14,13 +14,13 @@ export default function Main() {
   return (
     <>
       {modalActive && <OrderMethod />}
-      <div className='pt-20 relative max-w-7xl w-screen overflow-hidden mx-auto grid grid-cols-5'>
-        <section className='col-span-2 flex flex-col gap-y-8 p-6 px-12'>
+      <motion.div animate={{y:0}} initial={{y:'-100vh'}} transition={{type:'tween'}} className='pt-20 relative flex-col flex max-w-7xl w-screen overflow-hidden mx-auto lg:grid lg:grid-cols-5'>
+        <section className='col-span-2 flex flex-col gap-y-8 p-6 md:px-12'>
           <div className='hover:bg-[#848e57] duration-300 cursor-pointer flex gap-1 bg-[#585E3E] w-fit px-4 font-semibold py-2 rounded-md'>
             <Image src='/coffee.svg' alt='coffee cup' width={20} height={20} />
             <p>Coffee Shop</p>
           </div>
-          <h1 className='cursor-pointer hover:scale-105 duration-300 mt-3 text-5xl lg:text-7xl font-semibold max-w-[2/5vw]'>
+          <h1 className='cursor-pointer hover:scale-105 duration-300 mt-3 text-5xl lg:text-7xl font-semibold max-w-[330px] md:max-w-[400px]'>
             CODE, WORK & COFFEE
           </h1>
           <p className='w-[90%] lg:w-[75%] hover:scale-105 duration-300'>
@@ -30,13 +30,13 @@ export default function Main() {
           </p>
           <button
             onClick={handleOrder}
-            className='bg-[#E07F09] lg:w-[70%] xl:w-[50%] hover:bg-[#e04609] duration-300 font-medium px-6 py-2 rounded-sm'
+            className='bg-[#E07F09] max-w-[300px] lg:w-[70%] xl:w-[50%] hover:bg-[#e04609] duration-300 font-medium px-6 py-2 rounded-sm'
           >
             Order Now
           </button>
         </section>
 
-        <div className='relative h-fit col-span-3 mb-24'>
+        <div className='relative h-fit col-span-3 ml-6 md:ml-12 lg:ml-0 max-w-[700px] lg:max-w-full mb-24'>
           <Floating />
           <motion.div
             initial={{ opacity: 0 }}
@@ -65,7 +65,7 @@ export default function Main() {
             />
           </motion.div>
         </div>
-      </div>
+      </motion.div>
     </>
   );
 }

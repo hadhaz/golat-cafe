@@ -1,0 +1,10 @@
+[
+    {
+        "title": "Cash",
+        "img": "/payment/qris.svg"
+    },
+    {
+        "title": "Debit",
+        "img": "/payment/debit.jpg"
+    }
+]
