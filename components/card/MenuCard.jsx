@@ -96,7 +96,7 @@ export default function MenuCard({ item }) {
 
   return (
     <div className='w-screen keen-slider__slide h-fit px-2 pt-10 flex justify-center'>
-      <div className='rounded-md w-[100%] min-w-fit px-3 aspect-square relative bg-dairyCream flex flex-col items-center justify-end lg:pb-[8%] pb-4'>
+      <div className='rounded-md w-[80%] md:w-[90%] lg:w-full min-w-fit px-3 aspect-square relative bg-dairyCream flex flex-col items-center justify-end lg:pb-[8%] pb-4'>
         <div className='max-w-full hover:scale-110 duration-300 -top-10 absolute w-[70%]'>
           <Image alt={item.name} src={item.img} width={400} height={400} />
         </div>

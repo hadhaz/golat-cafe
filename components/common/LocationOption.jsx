@@ -16,7 +16,7 @@ export default function LocationOption() {
       defaultValue='KOMIPA'
       name='outlet'
       id='outlet'
-      className='bg-mangoTango px-3 font-medium rounded-md w-fit py-1'
+      className='bg-mangoTango outline-none px-3 font-medium rounded-md w-fit py-1'
     >
       <option value='GMC'>Foodcourt GMC</option>
       <option value='KOMIPA'>Komipa UGM</option>

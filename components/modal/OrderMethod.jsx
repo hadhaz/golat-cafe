@@ -13,7 +13,7 @@ export default function OrderMethod() {
   function handleDineIn() {
     dispatch(setFirstOrder(false));
     dispatch(modalReducer(false));
-    router.push("/reserve");
+    router.push("/reservation");
   }
   function handleTakeAway() {
     dispatch(setFirstOrder(false));
@@ -33,10 +33,10 @@ export default function OrderMethod() {
           animate={{ y: 0 }}
           className='bg-dairyCream max-w-xl rounded-md text-black font-medium py-10 px-4'
         >
-          <h1 className='text-xl xl:text-2xl text-center font-semibold mx-12'>
+          <h1 className='text-xl xl:text-2xl text-center font-semibold mx-4 md:mx-12'>
             Choose Your Order Method
           </h1>
-          <section className='flex flex-col items-center w-full md:flex-row justify-center mt-6 gap-6'>
+          <section className='flex flex-col items-center w-full md:flex-row justify-center mt-6 gap-2 md:gap-6'>
             <button
               onClick={handleTakeAway}
               className='bg-mangoTango border-[3px] border-transparent hover:bg-deepOrange text-white w-[85%] md:w-40 py-1 rounded-md'

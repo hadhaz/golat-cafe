@@ -48,7 +48,7 @@ export default function DraggableCart() {
           animate={{ y: yPos, x: "-50%" }}
           exit={{ x: "-50%", y: "80vh" }}
           dragConstraints={{
-            bottom: oHeight + (items.length - 1) + 135,
+            bottom: oHeight + (items.length - 1) + 100,
             top: 0,
           }}
           transition={{

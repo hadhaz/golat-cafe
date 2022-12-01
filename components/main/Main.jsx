@@ -2,7 +2,10 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import Floating from "./Floating";
 import { useDispatch, useSelector } from "react-redux";
-import { modalReducer, selectedModal } from "../../context/ui-slice";
+import {
+  modalReducer,
+  selectedModal,
+} from "../../context/ui-slice";
 import OrderMethod from "../modal/OrderMethod";
 
 export default function Main() {
@@ -14,7 +17,13 @@ export default function Main() {
   return (
     <>
       {modalActive && <OrderMethod />}
-      <motion.div animate={{y:0}} initial={{y:'-100vh'}} transition={{type:'tween'}} className='pt-20 relative flex-col flex max-w-7xl w-screen overflow-hidden mx-auto lg:grid lg:grid-cols-5'>
+      <motion.div
+        animate={{ y: 0 }}
+        initial={{ y: "-100vh" }}
+        transition={{ type: "tween" }}
+        className='pt-20 relative flex-col flex max-w-7xl max-h-screen
+         w-screen overflow-hidden mx-auto lg:grid lg:grid-cols-5'
+      >
         <section className='col-span-2 flex flex-col gap-y-8 p-6 md:px-12'>
           <div className='hover:bg-[#848e57] duration-300 cursor-pointer flex gap-1 bg-[#585E3E] w-fit px-4 font-semibold py-2 rounded-md'>
             <Image src='/coffee.svg' alt='coffee cup' width={20} height={20} />
@@ -36,7 +45,7 @@ export default function Main() {
           </button>
         </section>
 
-        <div className='relative h-fit col-span-3 ml-6 md:ml-12 lg:ml-0 max-w-[700px] lg:max-w-full mb-24'>
+        <div className='hidden md:block relative h-fit col-span-3 ml-6 md:ml-12 lg:ml-0 max-w-[700px] lg:max-w-full mb-24'>
           <Floating />
           <motion.div
             initial={{ opacity: 0 }}

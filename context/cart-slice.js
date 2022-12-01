@@ -63,6 +63,10 @@ export const selectedTotal = state => state.cart.total;
 export const selectedCumulativeQuantity = state => state.cart.quantityCum;
 export const selectedDraggableCart = state => state.cart.draggableOn;
 export const selectedDontActive = state => state.cart.dontActive;
+export const selectedFoods = state => ({
+  total: state.cart.total,
+  items: state.cart.items,
+});
 export const { addItem, removeItem, setItem, onClick, disableCart } =
   cart.actions;
 export default cart.reducer;

@@ -4,10 +4,14 @@ import { forwardRef, useState, useEffect } from "react";
 import Image from "next/image";
 import { selectedItems } from "../../context/memo-slice";
 import { AnimatePresence, motion } from "framer-motion";
-import Link from "next/link";
+import { useRouter } from "next/router";
+import { confirmOrder } from "../../context/reservation-slice";
+import { nextProgress } from "../../context/ui-slice";
 
 const Summary = forwardRef((props, ref) => {
+  const router = useRouter();
   const items = useSelector(selectedItems);
+  const dineIn = useSelector(state => state.reservation.dineIn);
   const formatter = Intl.NumberFormat("id-ID", {
     currency: "IDR",
     style: "currency",
@@ -37,6 +41,11 @@ const Summary = forwardRef((props, ref) => {
       );
     };
   }, []);
+
+  const checkoutHandler = () => {
+    dispatch(confirmOrder(true));
+    dispatch(nextProgress())
+  };
 
   const infoStartHandler = () => {
     setInfo(true);
@@ -77,11 +86,14 @@ const Summary = forwardRef((props, ref) => {
         <h3 className='text-xl font-semibold'>Subtotal:</h3>
         <p>{formatter.format(sum)}</p>
       </div>
-      <Link href='/payment'>
-        <button className='bg-mangoTango rounded-md w-fit px-10 py-[6px] text-white font-semibold hover:bg-[#e04609]'>
+      {dineIn && (
+        <button
+          onClick={checkoutHandler}
+          className='bg-mangoTango rounded-md w-fit px-10 py-[6px] text-white font-semibold hover:bg-[#e04609]'
+        >
           Checkout
         </button>
-      </Link>
+      )}
     </div>
   );
 });

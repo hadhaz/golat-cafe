@@ -1,18 +1,22 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  location: null,
-  seats: [],
   total: 0,
   fix: false,
   saved: {
     meta: [],
   },
-  id: null,
+  location: null,
   onBooking: false,
-  name: null,
-  phone: null,
-  date: null,
+  dineIn: null,
+  checkout: {
+    name: null,
+    phone: null,
+    date: null,
+    id: null,
+    payment: null,
+    notes: null,
+  },
 };
 
 export const reservation = createSlice({
@@ -52,16 +56,17 @@ export const reservation = createSlice({
     confirmOrder: state => {
       const date = new Date(Date.now());
       state.fix = true;
-      state.id = Math.random().toString(36).slice(2);
+      state.checkout.id = Math.random().toString(36).slice(2);
       state.saved.meta.forEach(item => {
         state.seats[item.col].items[item.line][item.idx].status = "booked";
       });
-
-      state.date = date.toLocaleString();
+      state.checkout.date = date.toLocaleString();
     },
-    addIdentity: (state, { payload }) => {
-      state.name = payload.name;
-      state.phone = payload.phone;
+    checkout: (state, { payload }) => {
+      state.checkout.name = payload.name;
+      state.checkout.phone = payload.phone;
+      state.checkout.notes = payload.notes;
+      state.checkout.payment = payload.payment;
     },
     setBooking: (state, { payload }) => {
       state.onBooking = payload;
@@ -71,6 +76,9 @@ export const reservation = createSlice({
     },
     updateLocation: (state, { payload }) => {
       state.location = payload;
+    },
+    updateDineIn: (state, { payload }) => {
+      state.dineIn = payload;
     },
   },
 });
@@ -87,17 +95,18 @@ export const selectedLocation = state => state.reservation.location;
 export const selectedSavedReservation = state => ({
   seats: state.reservation.saved?.meta,
   location: state.reservation?.location,
-  id: state.reservation?.id,
-  date: state.reservation?.date,
+  ...state.reservation.checkout,
 });
+export const selectedDineIn = state => state.reservation.dineIn;
 
 export const {
   initialize,
   updateSeats,
   confirmOrder,
-  addIdentity,
+  checkout,
   setBooking,
   clearSaved,
   updateLocation,
+  updateDineIn,
 } = reservation.actions;
 export default reservation.reducer;

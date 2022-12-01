@@ -1,6 +1,11 @@
 import { PDFExport } from "@progress/kendo-react-pdf";
 import { useEffect, useRef, useState } from "react";
 import { nanoid } from "@reduxjs/toolkit";
+import { useSelector } from "react-redux";
+import { selectedSavedReservation } from "../../context/reservation-slice";
+import { useRouter } from "next/router";
+import { selectedItems } from "../../context/memo-slice";
+import { selectedFoods } from "../../context/cart-slice";
 
 const data = {
   name: "Hadzami",
@@ -15,10 +20,14 @@ const data = {
       { name: "Nasi Goreng", quantity: 10, price: 10000, total: "100.000" },
     ],
   },
+  payment: "Cash",
 };
 
 export default function Invoice() {
   const pdfExportComponent = useRef(null);
+  const data = useSelector(selectedSavedReservation);
+  const food = useSelector(selectedFoods);
+
   const container = useRef(null);
   const [loaded, setLoaded] = useState(false);
 
@@ -34,7 +43,7 @@ export default function Invoice() {
 
   if (loaded)
     return (
-      <div className='mx-auto rounded-md max-w-7xl mt-28 flex flex-col'>
+      <div className='mb-16 mx-auto rounded-md max-w-7xl mt-28 flex flex-col'>
         <PDFExport
           paperSize='auto'
           margin={40}
@@ -53,14 +62,14 @@ export default function Invoice() {
               <h4 className='border-2 py-1 px-2 basis-1/3 text-center'>
                 Booking ID:
               </h4>
-              <p className='border-2  py-1 px-2 basis-2/3'>{data.orderId}</p>
+              <p className='border-2  py-1 px-2 basis-2/3'>{data.id}</p>
             </div>
             <div className='flex mt-3 w-full gap-3'>
               <h4 className='border-2  py-1 px-2 basis-1/3 text-center'>
                 Phone Number:
               </h4>
               <p className='border-2  py-1 px-2 basis-2/3'>
-                {data.phoneNumber}
+                {data?.phone}
               </p>
             </div>
             <div className='flex mt-3 w-full gap-3'>
@@ -86,11 +95,17 @@ export default function Invoice() {
                 Seats Number:
               </h4>
               <p className='border-2  py-1 px-2 basis-2/3'>
-                {data.seatsNo.map((item, index) => {
-                  if (index < data.seatsNo.length - 1) return item + ", ";
-                  return item;
+                {data.seats?.map((item, index) => {
+                  if (index < data.seats.length - 1) return item + ", ";
+                  return item.no;
                 })}
               </p>
+            </div>
+            <div className='flex mt-3 w-full gap-3'>
+              <h4 className='border-2  py-1 px-2 basis-1/3 text-center'>
+                Payment Method:
+              </h4>
+              <p className='border-2  py-1 px-2 basis-2/3'>{data.payment}</p>
             </div>
             <table className='w-full border mt-4 text-center'>
               <thead className='w-full bg-slate-100'>
@@ -108,14 +123,14 @@ export default function Invoice() {
                 </tr>
               </thead>
               <tbody>
-                {data.food.items.map(item => (
+                {food?.items?.map(item => (
                   <tr key={nanoid()}>
                     <td className='border border-collapse'>{item.name}</td>
                     <td className='border border-collapse'>{item.quantity}</td>
                     <td className='py-1 border border-collapse'>
                       {item.price}
                     </td>
-                    <td className='border border-collapse'>{item.total}</td>
+                    <td className='border border-collapse'>{item.quantity * item.price}</td>
                   </tr>
                 ))}
                 <tr>
@@ -126,7 +141,7 @@ export default function Invoice() {
                     Total Price:
                   </td>
                   <td className='py-1 border font-medium border-collapse'>
-                    {data.food.total}
+                    {food.total}
                   </td>
                 </tr>
               </tbody>
@@ -135,7 +150,7 @@ export default function Invoice() {
         </PDFExport>
         <button
           onClick={savePDF}
-          className='bg-mangoTango px-4 py-2 rounded-md font-medium mt-4 xl:w-64 lg:w-52 w-[70%] self-center hover:bg-deepOrange'
+          className='bg-mangoTango px-4 py-2 rounded-md font-medium mt-6 xl:w-64 lg:w-52 w-[70%] self-center hover:bg-deepOrange'
         >
           Save Invoice
         </button>

@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 export default function Floating() {
   return (
-    <div className='absolute left-[38%] md:left-[42%] translate-x-1/2 top-[15%] md:top-[22%] lg:top-1/4 -translate-y-[5vw] flex flex-col gap-1 w-fit'>
+    <div className='hidden md:flex absolute left-[38%] md:left-[42%] translate-x-1/2 top-[15%] md:top-[22%] lg:top-1/4 -translate-y-[5vw] flex-col gap-1 w-fit'>
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

@@ -8,24 +8,31 @@ import { useSelector } from "react-redux";
 import { selectedDraggableCart } from "../context/cart-slice";
 import Reminder from "../components/modal/Reminder";
 import Head from "next/head";
+import { useRouter } from "next/router";
 
 export default function Menu() {
   const cart = useSelector(selectedDraggableCart);
+  const router = useRouter();
+  const path = router.pathname;
+  console.log(path)
+
+  const animate = path === "/menu" ? { y: 0, opacity: 1 } : { x: 0, opacity: 1 };
+  const initial =
+    path === "/menu" ? { y: 100, opacity: 0 } : { x: '-100vh', opacity: 0 };
+
   return (
     <>
       <Head>
         <title>Golat Cafe: Food Menus</title>
-        <meta
-          name='description'
-          content='Golat Cafe Foods & Drink Menus'
-        />
+        <meta name='description' content='Golat Cafe Foods & Drink Menus' />
         <link rel='icon' href='/coffee.ico' />
       </Head>
-      <main className='flex flex-col xl:gap-12 lg:gap-4 pt-16 mb-12'>
-        <motion.div
-          animate={{ y: 0, opacity: 1 }}
-          initial={{ y: "30vh", opacity: 0 }}
-        >
+      <motion.main
+        animate={animate}
+        initial={initial}
+        className='flex flex-col xl:gap-12 lg:gap-4 pt-16 mb-12'
+      >
+        <motion.div>
           <BestSeller />
         </motion.div>
         {menus.map(item => (
@@ -44,7 +51,7 @@ export default function Menu() {
             <Catalogue title={item.title} desc={item.desc} type={item.type} />
           </motion.div>
         ))}
-      </main>
+      </motion.main>
       <AnimatePresence>{cart && <DraggableCart />}</AnimatePresence>
     </>
   );

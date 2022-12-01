@@ -13,7 +13,10 @@ export default function Summary() {
       <h1 className='text-center font-semibold text-xl mb-4 border-b-2 border-black py-4'>
         Reservation Invoice
       </h1>
-      <section id="invoice" className='px-8 font-medium flex flex-col w-full gap-y-2'>
+      <section
+        id='invoice'
+        className='px-8 font-medium flex flex-col w-full gap-y-2'
+      >
         <div className='flex gap-2'>
           <h3 className='w-full border basis-1/3 border-black px-1'>
             Booking Code:
@@ -55,9 +58,7 @@ export default function Summary() {
           </p>
         </div>
       </section>
-      <button
-        className='w-[85%] md:w-[75%] lg:w-60 hover:bg-deepOrange mt-5 bg-mangoTango text-white mx-auto rounded-md font-medium py-2 '
-      >
+      <button className='w-[85%] md:w-[75%] lg:w-60 hover:bg-deepOrange mt-5 bg-mangoTango text-white mx-auto rounded-md font-medium py-2 '>
         Order Food
       </button>
     </div>
