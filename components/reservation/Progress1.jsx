@@ -9,9 +9,15 @@ import {
   selectedLocation,
   selectedSavedReservation,
   selectedTotalBooking,
+  updateDineIn,
 } from "../../context/reservation-slice";
 import ConfirmationSeats from "../modal/ConfirmationSeats";
-import { selectedModal, modalReducer, selectedConfirm, confirmReducer } from "../../context/ui-slice";
+import {
+  selectedModal,
+  modalReducer,
+  selectedConfirm,
+  confirmReducer,
+} from "../../context/ui-slice";
 
 let LocationMap;
 

@@ -18,7 +18,10 @@ export const ui = createSlice({
     confirmReducer: (state, { payload }) => {
       state.confirmation = payload;
     },
-    nextProgress: state => {
+    nextProgress: (state, { payload }) => {
+      if (payload) {
+        state.progress = payload;
+      }
       state.progress = state.progress + 1;
     },
     resetProgress: state => {
@@ -35,6 +38,13 @@ export const ui = createSlice({
     disableToggleCart: (state, { payload }) => {
       state.disableToggleCart = payload;
     },
+    clearUIstate: state => {
+      state.modal = false;
+      state.confirmation = false;
+      state.progress = 1;
+      state.cart = false;
+      state.disableToggleCart = false;
+    },
   },
 });
 
@@ -45,6 +55,7 @@ export const {
   resetProgress,
   disableToggleCart,
   toggleCart,
+  clearUIstate
 } = ui.actions;
 
 export const selectedModal = state => state.ui.modal;

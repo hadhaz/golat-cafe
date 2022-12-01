@@ -6,11 +6,6 @@ import { useRouter } from "next/router";
 
 export default function WarningLogin() {
   const dispatch = useDispatch();
-  const router = useRouter();
-  const loginHandler = () => {
-    router.push("/auth/login");
-    dispatch(modalReducer(false));
-  };
   const rejectHandler = () => {
     dispatch(modalReducer(false));
   };

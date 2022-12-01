@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { setFirstOrder } from "../../context/reminder-slice";
+import { updateDineIn } from "../../context/reservation-slice";
 import { modalReducer, selectedModal } from "../../context/ui-slice";
 import OverlayWrapper from "../common/OverlayWrapper";
 
@@ -18,12 +19,9 @@ export default function OrderMethod() {
   function handleTakeAway() {
     dispatch(setFirstOrder(false));
     dispatch(modalReducer(false));
+    dispatch(updateDineIn(false));
     router.push("/menu");
   }
-
-  const closeHandler = () => {
-    dispatch(modalReducer(false));
-  };
 
   if (modalActive)
     return (

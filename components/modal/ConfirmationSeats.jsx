@@ -1,16 +1,19 @@
-import { useDispatch } from "react-redux";
-import { updateDineIn } from "../../context/reservation-slice";
+import { useDispatch, useSelector } from "react-redux";
+import { selectedDineIn, updateDineIn } from "../../context/reservation-slice";
 import { nextProgress } from "../../context/ui-slice";
 import { spreader } from "../../utils/array-spread";
 import OverlayWrapper from "../common/OverlayWrapper";
 
 export default function ConfirmationSeats({ seats, location }) {
   const dispatch = useDispatch();
+  const dineIn = useSelector(selectedDineIn);
   const seatList = spreader(seats);
+  
   const nextHandler = () => {
     dispatch(nextProgress());
-    dispatch(updateDineIn(true))
+    dispatch(updateDineIn(true));
   };
+
   return (
     <OverlayWrapper type='confirm'>
       <div className='rounded-md gap-y-2 flex flex-col bg-dairyCream text-slate-900 px-16 py-6'>

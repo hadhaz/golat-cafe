@@ -19,10 +19,13 @@ export const memo = createSlice({
         state.items.push(payload);
       }
     },
+    clearMemo: state => {
+      state.items = [];
+    },
   },
 });
 
 export const selectedItems = state => state.memo.items;
 export const selectedImage = state => state.memo.Image;
-export const { saveItem } = memo.actions;
+export const { saveItem, clearMemo } = memo.actions;
 export default memo.reducer;

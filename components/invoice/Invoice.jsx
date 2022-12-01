@@ -6,6 +6,7 @@ import { selectedSavedReservation } from "../../context/reservation-slice";
 import { useRouter } from "next/router";
 import { selectedItems } from "../../context/memo-slice";
 import { selectedFoods } from "../../context/cart-slice";
+import useCleaner  from "../../hooks/useCleaner";
 
 const data = {
   name: "Hadzami",
@@ -24,9 +25,11 @@ const data = {
 };
 
 export default function Invoice() {
+  const cleaner = useCleaner();
   const pdfExportComponent = useRef(null);
   const data = useSelector(selectedSavedReservation);
   const food = useSelector(selectedFoods);
+  const router = useRouter();
 
   const container = useRef(null);
   const [loaded, setLoaded] = useState(false);
@@ -38,6 +41,8 @@ export default function Invoice() {
   const savePDF = () => {
     if (pdfExportComponent.current) {
       pdfExportComponent.current.save();
+      router.push("/");
+      cleaner();
     }
   };
 
@@ -68,9 +73,7 @@ export default function Invoice() {
               <h4 className='border-2  py-1 px-2 basis-1/3 text-center'>
                 Phone Number:
               </h4>
-              <p className='border-2  py-1 px-2 basis-2/3'>
-                {data?.phone}
-              </p>
+              <p className='border-2  py-1 px-2 basis-2/3'>{data?.phone}</p>
             </div>
             <div className='flex mt-3 w-full gap-3'>
               <h4 className='border-2  py-1 px-2 basis-1/3 text-center'>
@@ -88,7 +91,9 @@ export default function Invoice() {
               <h4 className='border-2  py-1 px-2 basis-1/3 text-center'>
                 Location:
               </h4>
-              <p className='border-2  py-1 px-2 basis-2/3'>{data.location}</p>
+              <p className='border-2  py-1 px-2 basis-2/3'>
+                {data.seats.length === 0 ? "Take Away" : data.location}
+              </p>
             </div>
             <div className='flex mt-3 w-full gap-3'>
               <h4 className='border-2  py-1 px-2 basis-1/3 text-center'>
@@ -99,6 +104,7 @@ export default function Invoice() {
                   if (index < data.seats.length - 1) return item.no + ", ";
                   return item.no;
                 })}
+                {data.seats.length === 0 && "-"}
               </p>
             </div>
             <div className='flex mt-3 w-full gap-3'>
@@ -130,7 +136,9 @@ export default function Invoice() {
                     <td className='py-1 border border-collapse'>
                       {item.price}
                     </td>
-                    <td className='border border-collapse'>{item.quantity * item.price}</td>
+                    <td className='border border-collapse'>
+                      {item.quantity * item.price}
+                    </td>
                   </tr>
                 ))}
                 <tr>

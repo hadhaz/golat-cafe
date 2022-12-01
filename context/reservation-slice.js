@@ -80,6 +80,24 @@ export const reservation = createSlice({
     updateDineIn: (state, { payload }) => {
       state.dineIn = payload;
     },
+    clearReservationState: state => {
+      state.total = 0;
+      state.fix = false;
+      state.saved = {
+        meta: [],
+      };
+      state.location = null;
+      state.onBooking = false;
+      state.dineIn = null;
+      state.checkout = {
+        name: null,
+        phone: null,
+        date: null,
+        id: null,
+        payment: null,
+        notes: null,
+      };
+    },
   },
 });
 
@@ -108,5 +126,6 @@ export const {
   clearSaved,
   updateLocation,
   updateDineIn,
+  clearReservationState
 } = reservation.actions;
 export default reservation.reducer;

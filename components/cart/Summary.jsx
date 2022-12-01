@@ -1,17 +1,20 @@
 import { useSelector, useDispatch } from "react-redux";
-import { forwardRef, useState, useEffect } from "react";
+import { forwardRef, useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { selectedItems } from "../../context/memo-slice";
 import { AnimatePresence, motion } from "framer-motion";
-import { confirmOrder } from "../../context/reservation-slice";
+import { confirmOrder, updateDineIn } from "../../context/reservation-slice";
 import {
   disableToggleCart,
   nextProgress,
   toggleCart,
 } from "../../context/ui-slice";
+import Router, { useRouter } from "next/router";
 
 const Summary = forwardRef((props, ref) => {
+  const router = useRouter();
   const items = useSelector(selectedItems);
+  const dineInRef = useRef();
   const dineIn = useSelector(state => state.reservation.dineIn);
   const formatter = Intl.NumberFormat("id-ID", {
     currency: "IDR",
@@ -44,8 +47,11 @@ const Summary = forwardRef((props, ref) => {
   }, []);
 
   const checkoutHandler = () => {
+    if (router.pathname === "/menu") {
+      router.push("/reservation");
+    }
     dispatch(confirmOrder(true));
-    dispatch(nextProgress());
+    dispatch(nextProgress(2));
   };
 
   const infoStartHandler = () => {
@@ -54,6 +60,18 @@ const Summary = forwardRef((props, ref) => {
 
   const infoEndHandler = () => {
     setInfo(false);
+  };
+
+  const confirmHandler = () => {
+    router.push("/reservation");
+    dispatch(confirmOrder(true));
+
+    if (dineInRef.current.value === "takeaway") {
+      dispatch(updateDineIn(false));
+      dispatch(nextProgress(2));
+    } else {
+      dispatch(updateDineIn(true));
+    }
   };
 
   return (
@@ -88,9 +106,11 @@ const Summary = forwardRef((props, ref) => {
           <h4>Subtotal:</h4>
           {dineIn === null && (
             <select
+              ref={dineInRef}
               name='method'
               id='method'
               className='outline-none rounded-sm text-slate-800 px-1 py-[1px] text-base bg-mango font-medium'
+              defaultValue={dineIn ? "dine-in" : "takeaway"}
             >
               <option value='takeaway'>Takeaway</option>
               <option value='dinein'>Dine In</option>
@@ -99,7 +119,7 @@ const Summary = forwardRef((props, ref) => {
         </div>
         <p>{formatter.format(sum)}</p>
       </div>
-      {dineIn && (
+      {dineIn !== null && (
         <button
           onClick={checkoutHandler}
           className='bg-mangoTango rounded-md w-fit px-10 py-[6px] text-white font-semibold hover:bg-[#e04609]'
@@ -108,7 +128,10 @@ const Summary = forwardRef((props, ref) => {
         </button>
       )}
       {dineIn === null && (
-        <button className='bg-mangoTango rounded-md w-fit px-10 py-[6px] text-white font-semibold hover:bg-[#e04609]'>
+        <button
+          onClick={confirmHandler}
+          className='bg-mangoTango rounded-md w-fit px-10 py-[6px] text-white font-semibold hover:bg-[#e04609]'
+        >
           Confirm
         </button>
       )}
