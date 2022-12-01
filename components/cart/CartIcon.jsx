@@ -2,10 +2,9 @@ import { useState } from "react";
 import Image from "next/image";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  disableCart,
-  onClick,
   selectedCumulativeQuantity,
 } from "../../context/cart-slice";
+import { disableToggleCart, toggleCart } from "../../context/ui-slice";
 
 export default function CartIcon() {
   const [warning, setWarning] = useState(false);
@@ -14,8 +13,8 @@ export default function CartIcon() {
 
   const draggableHandler = () => {
     if (quantity > 0) {
-      dispatch(onClick(true));
-      dispatch(disableCart(false));
+      dispatch(disableToggleCart(false));
+      dispatch(toggleCart());
     } else {
       setWarning(true);
       setTimeout(() => setWarning(false), 1000);

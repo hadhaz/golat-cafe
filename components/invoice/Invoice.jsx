@@ -43,12 +43,12 @@ export default function Invoice() {
 
   if (loaded)
     return (
-      <div className='mb-16 mx-auto rounded-md max-w-7xl mt-28 flex flex-col'>
+      <div className='mb-16 mx-3 md:mx-auto rounded-md max-w-7xl mt-28 flex flex-col'>
         <PDFExport
           paperSize='auto'
           margin={40}
-          fileName={`Invoice for `}
-          author='KendoReact Team'
+          fileName={`Invoice for ${data.name}`}
+          author='Golat Cafe'
           ref={pdfExportComponent}
         >
           <div
@@ -96,7 +96,7 @@ export default function Invoice() {
               </h4>
               <p className='border-2  py-1 px-2 basis-2/3'>
                 {data.seats?.map((item, index) => {
-                  if (index < data.seats.length - 1) return item + ", ";
+                  if (index < data.seats.length - 1) return item.no + ", ";
                   return item.no;
                 })}
               </p>

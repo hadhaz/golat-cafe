@@ -5,7 +5,8 @@ import { selectedItems } from "../../context/memo-slice";
 import OrderCard from "../card/OrderCard";
 import Summary from "./Summary";
 import db from "../../data/product.json";
-import { selectedDraggableCart } from "../../context/cart-slice";
+import { selectedCartUI } from "../../context/ui-slice";
+import { selectedDineIn } from "../../context/reservation-slice";
 
 export default function DraggableCart() {
   const [oHeight, setOHeight] = useState(0);
@@ -14,9 +15,9 @@ export default function DraggableCart() {
   const [loaded, setLoaded] = useState(0);
   const orderCardRef = useRef();
   const summaryRef = useRef();
+  const isCartActive = useSelector(selectedCartUI);
   const items = useSelector(selectedItems);
-  const isDraggableCartActive = useSelector(selectedDraggableCart);
-
+  const dineIn = useSelector(selectedDineIn);
   useEffect(() => {
     if (loaded) {
       setCount(1);
@@ -36,19 +37,20 @@ export default function DraggableCart() {
   useEffect(() => {
     setOHeight(orderCardRef?.current?.clientHeight);
     setYPos(orderCardRef?.current?.clientHeight);
-  }, [items]);
+  }, [isCartActive]);
 
+  const additionalHeight = dineIn === null ? 165 : 100;
 
   return (
     <AnimatePresence>
-      {items[0] && isDraggableCartActive && (
+      {items[0] && isCartActive && (
         <motion.div
           drag='y'
           initial={{ x: "-50%", y: "100vh" }}
           animate={{ y: yPos, x: "-50%" }}
           exit={{ x: "-50%", y: "80vh" }}
           dragConstraints={{
-            bottom: oHeight + (items.length - 1) + 100,
+            bottom: oHeight + (items.length - 1) + additionalHeight,
             top: 0,
           }}
           transition={{

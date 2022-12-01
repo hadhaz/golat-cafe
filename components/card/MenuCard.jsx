@@ -9,6 +9,7 @@ import {
   selectedFirstOrder,
   setFirstOrder,
 } from "../../context/reminder-slice";
+import { selectedDisableToggleCart, toggleCart } from "../../context/ui-slice";
 
 export default function MenuCard({ item }) {
   const firstOrder = useSelector(selectedFirstOrder);
@@ -17,7 +18,7 @@ export default function MenuCard({ item }) {
     quantity: 0,
   };
   const dispatch = useDispatch();
-  const dontActive = useSelector(state => state.cart.dontActive);
+  const disableToggle = useSelector(selectedDisableToggleCart);
 
   const formatter = Intl.NumberFormat("id-ID", {
     currency: "IDR",
@@ -37,7 +38,10 @@ export default function MenuCard({ item }) {
       })
     );
 
-    if (!dontActive) dispatch(onClick(true));
+
+    if (!disableToggle) {
+      dispatch(toggleCart(true));
+    }
 
     // setQuantity is asynchronous update, so we handle with + 1
     dispatch(

@@ -1,15 +1,16 @@
 import { useSelector, useDispatch } from "react-redux";
-import { disableCart, onClick } from "../../context/cart-slice";
 import { forwardRef, useState, useEffect } from "react";
 import Image from "next/image";
 import { selectedItems } from "../../context/memo-slice";
 import { AnimatePresence, motion } from "framer-motion";
-import { useRouter } from "next/router";
 import { confirmOrder } from "../../context/reservation-slice";
-import { nextProgress } from "../../context/ui-slice";
+import {
+  disableToggleCart,
+  nextProgress,
+  toggleCart,
+} from "../../context/ui-slice";
 
 const Summary = forwardRef((props, ref) => {
-  const router = useRouter();
   const items = useSelector(selectedItems);
   const dineIn = useSelector(state => state.reservation.dineIn);
   const formatter = Intl.NumberFormat("id-ID", {
@@ -25,8 +26,8 @@ const Summary = forwardRef((props, ref) => {
 
   const dispatch = useDispatch();
   const closeHandler = () => {
-    dispatch(onClick());
-    dispatch(disableCart(true));
+    dispatch(toggleCart());
+    dispatch(disableToggleCart(true));
   };
 
   useEffect(() => {
@@ -44,7 +45,7 @@ const Summary = forwardRef((props, ref) => {
 
   const checkoutHandler = () => {
     dispatch(confirmOrder(true));
-    dispatch(nextProgress())
+    dispatch(nextProgress());
   };
 
   const infoStartHandler = () => {
@@ -83,7 +84,19 @@ const Summary = forwardRef((props, ref) => {
       </div>
 
       <div className='flex justify-around w-full py-8'>
-        <h3 className='text-xl font-semibold'>Subtotal:</h3>
+        <div className='text-xl font-semibold flex gap-y-3 flex-col'>
+          <h4>Subtotal:</h4>
+          {dineIn === null && (
+            <select
+              name='method'
+              id='method'
+              className='outline-none rounded-sm text-slate-800 px-1 py-[1px] text-base bg-mango font-medium'
+            >
+              <option value='takeaway'>Takeaway</option>
+              <option value='dinein'>Dine In</option>
+            </select>
+          )}
+        </div>
         <p>{formatter.format(sum)}</p>
       </div>
       {dineIn && (
@@ -92,6 +105,11 @@ const Summary = forwardRef((props, ref) => {
           className='bg-mangoTango rounded-md w-fit px-10 py-[6px] text-white font-semibold hover:bg-[#e04609]'
         >
           Checkout
+        </button>
+      )}
+      {dineIn === null && (
+        <button className='bg-mangoTango rounded-md w-fit px-10 py-[6px] text-white font-semibold hover:bg-[#e04609]'>
+          Confirm
         </button>
       )}
     </div>

@@ -1,20 +1,17 @@
-import Navbar from "../components/header/Navbar";
 import BestSeller from "../components/catalogue/BestSeller";
-import CoffeeOverlay from "../components/main/Overlay";
 import Catalogue from "../components/catalogue/Catalouge";
 import { AnimatePresence, motion } from "framer-motion";
 import DraggableCart from "../components/cart/DraggableCard";
 import { useSelector } from "react-redux";
-import { selectedDraggableCart } from "../context/cart-slice";
-import Reminder from "../components/modal/Reminder";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { selectedCartUI } from "../context/ui-slice";
 
 export default function Menu() {
-  const cart = useSelector(selectedDraggableCart);
+  const cart = useSelector(selectedCartUI);
   const router = useRouter();
   const path = router.pathname;
-  console.log(path)
+  console.log(cart)
 
   const animate = path === "/menu" ? { y: 0, opacity: 1 } : { x: 0, opacity: 1 };
   const initial =
