@@ -12,10 +12,11 @@ const initialState = {
   checkout: {
     name: null,
     phone: null,
-    date: null,
+    orderDate: null,
     id: null,
     payment: null,
     notes: null,
+    times: null,
   },
 };
 
@@ -60,7 +61,7 @@ export const reservation = createSlice({
       state.saved.meta.forEach(item => {
         state.seats[item.col].items[item.line][item.idx].status = "booked";
       });
-      state.checkout.date = date.toLocaleString();
+      state.checkout.orderDate = date.toLocaleString();
     },
     checkout: (state, { payload }) => {
       state.checkout.name = payload.name;
@@ -77,6 +78,9 @@ export const reservation = createSlice({
     updateLocation: (state, { payload }) => {
       state.location = payload;
     },
+    updateTimes: (state, { payload }) => {
+      state.checkout.times = payload;
+    },
     updateDineIn: (state, { payload }) => {
       state.dineIn = payload;
     },
@@ -92,7 +96,7 @@ export const reservation = createSlice({
       state.checkout = {
         name: null,
         phone: null,
-        date: null,
+        orderDate: null,
         id: null,
         payment: null,
         notes: null,
@@ -126,6 +130,7 @@ export const {
   clearSaved,
   updateLocation,
   updateDineIn,
-  clearReservationState
+  clearReservationState,
+  updateTimes,
 } = reservation.actions;
 export default reservation.reducer;

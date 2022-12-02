@@ -43,6 +43,7 @@ export default function Invoice() {
       pdfExportComponent.current.save();
       router.push("/");
       cleaner();
+
     }
   };
 
@@ -85,7 +86,7 @@ export default function Invoice() {
               <h4 className='border-2  py-1 px-2 basis-1/3 text-center'>
                 Order Date:
               </h4>
-              <p className='border-2  py-1 px-2 basis-2/3'>{data.date}</p>
+              <p className='border-2  py-1 px-2 basis-2/3'>{data.orderDate}</p>
             </div>
             <div className='flex mt-3 w-full gap-3'>
               <h4 className='border-2  py-1 px-2 basis-1/3 text-center'>
@@ -94,6 +95,12 @@ export default function Invoice() {
               <p className='border-2  py-1 px-2 basis-2/3'>
                 {data.seats.length === 0 ? "Take Away" : data.location}
               </p>
+            </div>
+            <div className='flex mt-3 w-full gap-3'>
+              <h4 className='border-2  py-1 px-2 basis-1/3 text-center'>
+                Times:
+              </h4>
+              <p className='border-2  py-1 px-2 basis-2/3'>{data.times}</p>
             </div>
             <div className='flex mt-3 w-full gap-3'>
               <h4 className='border-2  py-1 px-2 basis-1/3 text-center'>

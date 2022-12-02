@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { motion } from "framer-motion";
 import { useDispatch } from "react-redux";
 import { checkout } from "../../context/reservation-slice";
-import { useRouter } from "next/router";
+import Router, { useRouter } from "next/router";
 import { nextProgress } from "../../context/ui-slice";
 
 export default function CheckoutForm() {
@@ -24,7 +24,11 @@ export default function CheckoutForm() {
       })
     );
 
-    dispatch(nextProgress());
+    if (paymentRef.current.value === "qris") {
+      Router.push("/testing/payment");
+    } else {
+      dispatch(nextProgress());
+    }
   };
   return (
     <motion.form

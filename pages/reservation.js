@@ -24,7 +24,9 @@ export default function Reserve() {
   const progress = useSelector(selectedProgress);
 
   useEffect(() => {
-    dispatch(clearSaved());
+    if (progress === 1) {
+      dispatch(clearSaved());
+    }
   }, []);
 
   return (
