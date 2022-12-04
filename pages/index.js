@@ -1,4 +1,3 @@
-import Head from "next/head";
 import BestSeller from "../components/catalogue/BestSeller";
 import Main from "../components/main/Main";
 import Link from "next/link";

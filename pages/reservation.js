@@ -1,11 +1,10 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import Head from "next/head";
 import { useDispatch, useSelector } from "react-redux";
 import Navbar from "../components/header/Navbar";
 import {
   clearSaved,
-  selectedOnBooking,
-  updateDineIn,
+  selectedOnBooking
 } from "../context/reservation-slice";
 import ReserveModal from "../components/modal/ReserveModal";
 import WarningLogin from "../components/modal/WarningLogin";
@@ -13,7 +12,6 @@ import { selectedModal, selectedProgress } from "../context/ui-slice";
 import Progress1 from "../components/reservation/Progress1";
 import { AnimatePresence, MotionConfig } from "framer-motion";
 import Progress2 from "../components/reservation/Progress2";
-import { useRouter } from "next/router";
 import Progress3 from "../components/reservation/Progress3";
 import Progress4 from "../components/reservation/Progress4";
 
